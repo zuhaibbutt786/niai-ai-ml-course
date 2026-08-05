@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 6 — Unsupervised Learning | NIAI Course</title>
+  <meta name="description" content="Clustering (K-Means, DBSCAN), Dimensionality Reduction (PCA). Numerical examples and diagrams.">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+<div class="progress-track"><div class="progress-fill"></div></div>
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html">NIAI<span> · AI/ML</span></a>
+    <nav class="topnav">
+      <a href="../index.html">Roadmap</a>
+      <a href="../module5/index.html">Module 5</a>
+      <button class="topnav-btn" id="slideModeToggle">▶ Slides</button>
+    </nav>
+  </div>
+</header>
+<nav class="daynav wrap">
+  <a href="#clustering">Clustering</a>
+  <a href="#kmeans">K-Means</a>
+  <a href="#dbscan">DBSCAN</a>
+  <a href="#dimred">Dimensionality Reduction</a>
+</nav>
+
+<main class="wrap">
+
+<section class="day-section" id="clustering">
+  <div class="day-head"><span class="day-num">06</span><h2>Module 6 — Unsupervised Learning</h2></div>
+  <p class="day-sub">Clustering · Dimensionality Reduction · No labels required</p>
+
+  <div class="topic">
+    <h3>Supervised vs Unsupervised</h3>
+    <p><strong>Supervised</strong> — every training example has a label (price, class).<br>
+    <strong>Unsupervised</strong> — only features; the algorithm finds structure (groups, directions of variance) by itself.</p>
+    <p>Use cases: customer segmentation, anomaly detection, topic discovery, compressing features before a supervised model.</p>
+  </div>
+</section>
+
+<section class="day-section" id="kmeans">
+  <div class="day-head"><span class="day-num">6.1</span><h2>K-Means Clustering</h2></div>
+  <p class="day-sub">Partition data into k groups by distance to centroids</p>
+
+  <img class="diagram" src="../assets/img/kmeans.svg" alt="K-Means clustering diagram">
+  <p class="diagram-caption">K-Means: assign points to nearest centroid, then move centroids, repeat</p>
+
+  <div class="topic">
+    <h3>Algorithm (4 steps)</h3>
+    <ol>
+      <li>Choose k (number of clusters) and place k centroids (random or smart init).</li>
+      <li>Assign every point to the nearest centroid (usually Euclidean distance).</li>
+      <li>Move each centroid to the mean of the points assigned to it.</li>
+      <li>Repeat 2–3 until assignments stop changing (or max iterations).</li>
+    </ol>
+  </div>
+
+  <div class="worked">
+    <div class="title">Worked Example — K-Means (k=2, 1D for simplicity)</div>
+    <p>Data: [1, 2, 3, 10, 11, 12]. Start centroids c1=1, c2=12.</p>
+    <ol class="steps">
+      <li><strong>Assign:</strong> 1,2,3 → cluster1; 10,11,12 → cluster2</li>
+      <li><strong>Update:</strong> c1 = mean(1,2,3) = 2; c2 = mean(10,11,12) = 11</li>
+      <li>Assignments unchanged → stop.</li>
+    </ol>
+    <div class="answer">Clusters: {1,2,3} and {10,11,12}. Centroids 2 and 11.</div>
+  </div>
+
+  <div class="topic">
+    <h3>Choosing k — Elbow method idea</h3>
+    <p>Plot total within-cluster sum of squares (inertia) for k=1,2,3,… The “elbow” where improvement slows is a good candidate for k.</p>
+  </div>
+
+  <div class="callout warn">
+    <span class="tag">Limitations</span>
+    K-Means assumes roughly spherical clusters of similar size. It is sensitive to scale (scale your features first) and to outliers.
+  </div>
+</section>
+
+<section class="day-section" id="dbscan">
+  <div class="day-head"><span class="day-num">6.2</span><h2>DBSCAN</h2></div>
+  <p class="day-sub">Density-Based Spatial Clustering of Applications with Noise</p>
+
+  <div class="topic">
+    <h3>Core idea</h3>
+    <p>Clusters are dense regions separated by sparse regions. Points in low-density areas are labelled <strong>noise</strong> (great for anomaly detection).</p>
+    <ul>
+      <li><strong>eps</strong> — neighbourhood radius</li>
+      <li><strong>min_samples</strong> — minimum points to form a dense region</li>
+    </ul>
+    <p>A point is a <em>core point</em> if it has at least min_samples neighbours within eps. Clusters grow by connecting core points and their neighbours.</p>
+  </div>
+
+  <div class="topic">
+    <h3>When to prefer DBSCAN over K-Means</h3>
+    <ul>
+      <li>You do not know k in advance</li>
+      <li>Clusters have irregular shapes</li>
+      <li>You want to flag outliers automatically</li>
+    </ul>
+  </div>
+</section>
+
+<section class="day-section" id="dimred">
+  <div class="day-head"><span class="day-num">6.3</span><h2>Dimensionality Reduction</h2></div>
+  <p class="day-sub">PCA and the idea of projecting to fewer axes</p>
+
+  <div class="topic">
+    <h3>Why reduce dimensions?</h3>
+    <ul>
+      <li>Visualise high-dimensional data in 2D/3D</li>
+      <li>Remove noise and redundancy</li>
+      <li>Speed up downstream models</li>
+      <li>Fight the “curse of dimensionality”</li>
+    </ul>
+  </div>
+
+  <div class="topic">
+    <h3>PCA — Principal Component Analysis (intuition)</h3>
+    <p>PCA finds new axes (principal components) that capture the maximum variance in the data. The first PC is the direction of greatest spread; the second is the next orthogonal direction, and so on. You keep the top few PCs and discard the rest.</p>
+  </div>
+
+  <div class="worked">
+    <div class="title">Conceptual PCA example</div>
+    <p>Two features that are almost linearly related (height cm, height inches). Almost all variance lies along one direction. PCA collapses them to a single principal component that still explains ~99% of the variance — one number instead of two, with almost no information loss.</p>
+  </div>
+
+  <div class="topic">
+    <h3>Other methods (names only for now)</h3>
+    <ul>
+      <li><strong>t-SNE / UMAP</strong> — non-linear, excellent for 2D visualisation of clusters</li>
+      <li><strong>Autoencoders</strong> — neural nets that compress then reconstruct (deep unsupervised)</li>
+    </ul>
+  </div>
+
+  <div class="callout">
+    <span class="tag">Curriculum assignment</span>
+    Define, develop and analyse unsupervised models (clustering + dimensionality reduction on a small dataset).
+  </div>
+
+  <div class="mcq">
+    <p class="q">K-Means requires you to specify in advance:</p>
+    <button class="mcq-opt" data-correct="true">The number of clusters k</button>
+    <button class="mcq-opt" data-correct="false">The learning rate</button>
+    <button class="mcq-opt" data-correct="false">Class labels</button>
+    <button class="mcq-opt" data-correct="false">A neural network architecture</button>
+  </div>
+
+  <div class="takeaways">
+    <h3>Module 6 — Key takeaways</h3>
+    <ul>
+      <li>Unsupervised learning finds structure without labels.</li>
+      <li>K-Means: iterative centroid assignment; choose k carefully.</li>
+      <li>DBSCAN: density-based; finds arbitrary shapes and noise.</li>
+      <li>PCA: project onto directions of maximum variance for compression and visualisation.</li>
+    </ul>
+  </div>
+  <p style="margin-top:28px;"><a href="../module5/index.html">← Module 5</a> · <a href="../index.html">Roadmap</a> · <a href="../module7/index.html">Module 7 →</a></p>
+</section>
+
+</main>
+<footer><div class="wrap"><p>NIAI Module 6 — Unsupervised Learning · K-Means diagram + numerical examples</p></div></footer>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

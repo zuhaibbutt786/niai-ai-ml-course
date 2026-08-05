@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 7 — Transfer Learning &amp; Practical DL | NIAI Course</title>
+  <meta name="description" content="Transfer learning, fine-tuning, pre-trained models, practical deep learning patterns. Bridge between advanced models and MLOps.">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+<div class="progress-track"><div class="progress-fill"></div></div>
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html">NIAI<span> · AI/ML</span></a>
+    <nav class="topnav">
+      <a href="../index.html">Roadmap</a>
+      <a href="../module6/index.html">Module 6</a>
+      <button class="topnav-btn" id="slideModeToggle">▶ Slides</button>
+    </nav>
+  </div>
+</header>
+<nav class="daynav wrap">
+  <a href="#why">Why transfer</a>
+  <a href="#how">How it works</a>
+  <a href="#practice">Practice patterns</a>
+  <a href="#checklist">Checklist</a>
+</nav>
+
+<main class="wrap">
+
+<section class="day-section" id="why">
+  <div class="day-head"><span class="day-num">07</span><h2>Module 7 — Transfer Learning &amp; Practical DL</h2></div>
+  <p class="day-sub">Bridge module · Fine-tuning pre-trained models · Real project patterns</p>
+
+  <div class="callout">
+    <span class="tag">Note on numbering</span>
+    The official NIAI outline jumps from Module 6 to Module 8. This Module 7 consolidates the curriculum tasks “fine-tune pre-trained models · transfer learning · distributed training” into a practical bridge before MLOps.
+  </div>
+
+  <div class="topic">
+    <h3>Why not train every network from scratch?</h3>
+    <ul>
+      <li>Modern CNNs and Transformers need millions of labelled examples and days of GPU time.</li>
+      <li>Features learned on ImageNet or large text corpora (edges, textures, grammar, world knowledge) transfer to new tasks.</li>
+      <li>Transfer learning = start from a strong pre-trained model and adapt it to your smaller dataset.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="day-section" id="how">
+  <div class="day-head"><span class="day-num">7.1</span><h2>How transfer learning works</h2></div>
+
+  <div class="topic">
+    <h3>Typical image workflow</h3>
+    <ol>
+      <li>Load a pre-trained CNN (ResNet, EfficientNet, …) trained on ImageNet.</li>
+      <li>Freeze early layers (they detect generic edges and textures).</li>
+      <li>Replace the final classification head with a new head matching your number of classes.</li>
+      <li>Train only the new head (or unfreeze top layers later) on your data with a smaller learning rate.</li>
+    </ol>
+  </div>
+
+  <div class="topic">
+    <h3>Typical NLP workflow</h3>
+    <ol>
+      <li>Load a pre-trained Transformer (BERT, DistilBERT, …).</li>
+      <li>Add a classification or token-classification head.</li>
+      <li>Fine-tune on your labelled sentences with a low learning rate (e.g. 2e-5).</li>
+    </ol>
+  </div>
+
+  <div class="worked">
+    <div class="title">Conceptual numbers — why fine-tuning is cheaper</div>
+    <p>Training a large CNN from scratch on ImageNet: ~1–2 weeks on multiple GPUs, millions of images.</p>
+    <p>Fine-tuning the same backbone on 2,000 medical images: hours on a single GPU, often better accuracy than training from random weights on the same small set.</p>
+    <div class="answer">Reuse expensive general features; only adapt the last layers to your domain.</div>
+  </div>
+
+  <img class="diagram" src="../assets/img/cnn-layers.svg" alt="CNN layers — freeze early, train late">
+  <p class="diagram-caption">In transfer learning we often freeze early Conv blocks and train the later / head layers</p>
+</section>
+
+<section class="day-section" id="practice">
+  <div class="day-head"><span class="day-num">7.2</span><h2>Practical patterns</h2></div>
+
+  <div class="topic">
+    <h3>1. Feature extraction vs fine-tuning</h3>
+    <ul>
+      <li><strong>Feature extraction</strong> — freeze the whole backbone, train only a linear classifier on top. Fastest, least risk of overfitting.</li>
+      <li><strong>Fine-tuning</strong> — unfreeze some or all layers and continue training with a small LR. More flexible, needs more data and care.</li>
+    </ul>
+  </div>
+
+  <div class="topic">
+    <h3>2. Learning-rate tips</h3>
+    <ul>
+      <li>New head: higher LR (e.g. 1e-3)</li>
+      <li>Pre-trained layers: much lower LR (e.g. 1e-5) or differential LRs per layer block</li>
+      <li>Warm-up then cosine decay often helps Transformers</li>
+    </ul>
+  </div>
+
+  <div class="topic">
+    <h3>3. Data augmentation (images)</h3>
+    <p>Random flips, crops, colour jitter increase effective dataset size and reduce overfitting when you have few labelled images.</p>
+  </div>
+
+  <div class="topic">
+    <h3>4. Where to run it on GCP</h3>
+    <ul>
+      <li>Vertex AI Workbench notebook with a GPU for interactive experiments</li>
+      <li>Vertex AI custom training job for longer runs</li>
+      <li>Save checkpoints and the final model to Cloud Storage; register in Vertex Model Registry</li>
+    </ul>
+  </div>
+</section>
+
+<section class="day-section" id="checklist">
+  <div class="day-head"><span class="day-num">7.3</span><h2>Mini project checklist</h2></div>
+
+  <div class="topic">
+    <h3>Suggested exercise</h3>
+    <ol>
+      <li>Pick a small image or text dataset (or a public Kaggle subset).</li>
+      <li>Load a pre-trained model from TensorFlow Hub / Hugging Face / PyTorch Hub.</li>
+      <li>Replace the head, freeze the backbone, train 5–10 epochs.</li>
+      <li>Optionally unfreeze top layers and fine-tune with a lower LR.</li>
+      <li>Report train vs validation metrics and a few qualitative examples.</li>
+    </ol>
+  </div>
+
+  <div class="mcq">
+    <p class="q">When fine-tuning a pre-trained model you should usually:</p>
+    <button class="mcq-opt" data-correct="false">Use a very large learning rate on all layers</button>
+    <button class="mcq-opt" data-correct="true">Use a smaller learning rate, especially on pre-trained layers</button>
+    <button class="mcq-opt" data-correct="false">Never use any pre-trained weights</button>
+    <button class="mcq-opt" data-correct="false">Delete all convolutional layers</button>
+  </div>
+
+  <div class="takeaways">
+    <h3>Module 7 — Key takeaways</h3>
+    <ul>
+      <li>Transfer learning reuses features learned on large datasets.</li>
+      <li>Freeze early layers, adapt the head; fine-tune carefully with low LR.</li>
+      <li>Works for both vision (CNNs) and language (Transformers).</li>
+      <li>On GCP: Workbench + GPU or Vertex training jobs + Model Registry.</li>
+    </ul>
+  </div>
+  <p style="margin-top:28px;"><a href="../module6/index.html">← Module 6</a> · <a href="../index.html">Roadmap</a></p>
+</section>
+
+</main>
+<footer><div class="wrap"><p>NIAI Module 7 — Transfer Learning &amp; Practical DL · Bridge before MLOps</p></div></footer>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

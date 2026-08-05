@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 280" font-family="Segoe UI, system-ui, sans-serif">
+  <rect width="640" height="280" fill="#f8fafc"/>
+  <text x="320" y="24" text-anchor="middle" fill="#0f172a" font-size="15" font-weight="700">K-Means Clustering — Idea</text>
+
+  <!-- cluster 1 -->
+  <circle cx="120" cy="100" r="8" fill="#4f46e5"/>
+  <circle cx="100" cy="130" r="8" fill="#4f46e5"/>
+  <circle cx="140" cy="125" r="8" fill="#4f46e5"/>
+  <circle cx="115" cy="155" r="8" fill="#4f46e5"/>
+  <circle cx="120" cy="120" r="14" fill="none" stroke="#4f46e5" stroke-width="2" stroke-dasharray="4"/>
+  <circle cx="120" cy="120" r="5" fill="#312e81"/>
+  <text x="120" y="195" text-anchor="middle" fill="#4f46e5" font-size="12" font-weight="600">Cluster A</text>
+  <text x="120" y="212" text-anchor="middle" fill="#64748b" font-size="11">centroid</text>
+
+  <!-- cluster 2 -->
+  <circle cx="320" cy="90" r="8" fill="#0ea5e9"/>
+  <circle cx="300" cy="120" r="8" fill="#0ea5e9"/>
+  <circle cx="340" cy="115" r="8" fill="#0ea5e9"/>
+  <circle cx="310" cy="145" r="8" fill="#0ea5e9"/>
+  <circle cx="335" cy="140" r="8" fill="#0ea5e9"/>
+  <circle cx="320" cy="120" r="16" fill="none" stroke="#0ea5e9" stroke-width="2" stroke-dasharray="4"/>
+  <circle cx="320" cy="120" r="5" fill="#0c4a6e"/>
+  <text x="320" y="195" text-anchor="middle" fill="#0ea5e9" font-size="12" font-weight="600">Cluster B</text>
+
+  <!-- cluster 3 -->
+  <circle cx="500" cy="100" r="8" fill="#10b981"/>
+  <circle cx="480" cy="130" r="8" fill="#10b981"/>
+  <circle cx="520" cy="125" r="8" fill="#10b981"/>
+  <circle cx="510" cy="150" r="8" fill="#10b981"/>
+  <circle cx="500" cy="125" r="14" fill="none" stroke="#10b981" stroke-width="2" stroke-dasharray="4"/>
+  <circle cx="500" cy="125" r="5" fill="#064e3b"/>
+  <text x="500" y="195" text-anchor="middle" fill="#10b981" font-size="12" font-weight="600">Cluster C</text>
+
+  <text x="320" y="250" text-anchor="middle" fill="#334155" font-size="13">1. Pick k centroids · 2. Assign points to nearest · 3. Move centroids · 4. Repeat</text>
+</svg>

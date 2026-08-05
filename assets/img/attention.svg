@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 220" font-family="Segoe UI, system-ui, sans-serif">
+  <rect width="720" height="220" fill="#f8fafc"/>
+  <text x="360" y="26" text-anchor="middle" fill="#0f172a" font-size="15" font-weight="700">Attention — Query, Key, Value (intuition)</text>
+
+  <rect x="40" y="55" width="100" height="50" rx="8" fill="#4f46e5"/>
+  <text x="90" y="85" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">Query (Q)</text>
+  <text x="90" y="130" text-anchor="middle" fill="#64748b" font-size="11">"What am I</text>
+  <text x="90" y="146" text-anchor="middle" fill="#64748b" font-size="11">looking for?"</text>
+
+  <rect x="200" y="55" width="100" height="50" rx="8" fill="#0ea5e9"/>
+  <text x="250" y="85" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">Key (K)</text>
+  <text x="250" y="130" text-anchor="middle" fill="#64748b" font-size="11">"What do I</text>
+  <text x="250" y="146" text-anchor="middle" fill="#64748b" font-size="11">contain?"</text>
+
+  <rect x="360" y="55" width="100" height="50" rx="8" fill="#10b981"/>
+  <text x="410" y="85" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">Value (V)</text>
+  <text x="410" y="130" text-anchor="middle" fill="#64748b" font-size="11">"Actual</text>
+  <text x="410" y="146" text-anchor="middle" fill="#64748b" font-size="11">content"</text>
+
+  <rect x="520" y="45" width="160" height="70" rx="8" fill="#7c3aed"/>
+  <text x="600" y="75" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">Attention weights</text>
+  <text x="600" y="95" text-anchor="middle" fill="#ede9fe" font-size="11">softmax(Q·Kᵀ / √d)</text>
+
+  <text x="360" y="185" text-anchor="middle" fill="#334155" font-size="13">Output = weighted sum of Values (focus on relevant parts)</text>
+  <text x="360" y="205" text-anchor="middle" fill="#64748b" font-size="12">Used in Transformers, BERT, GPT, modern NLP &amp; vision models</text>
+</svg>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 5 — Advanced AI and ML | NIAI Course</title>
+  <meta name="description" content="CNNs, RNNs, Transformers, Attention, Optimization, Cloud Training on GCP.">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+<div class="progress-track"><div class="progress-fill"></div></div>
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html">NIAI<span> · AI/ML</span></a>
+    <nav class="topnav">
+      <a href="../index.html">Roadmap</a>
+      <a href="../module4/index.html">Module 4</a>
+      <button class="topnav-btn" id="slideModeToggle">▶ Slides</button>
+    </nav>
+  </div>
+</header>
+<nav class="daynav wrap">
+  <a href="#cnn">CNNs</a>
+  <a href="#rnn">RNNs</a>
+  <a href="#transformers">Transformers</a>
+  <a href="#optim">Optimization</a>
+  <a href="#cloud-train">Cloud Training</a>
+</nav>
+
+<main class="wrap">
+
+<section class="day-section" id="cnn">
+  <div class="day-head"><span class="day-num">05</span><h2>Module 5 — Advanced AI and ML</h2></div>
+  <p class="day-sub">Deep Learning Models · Optimization · Cloud-Based Training (GPU/TPU)</p>
+
+  <div class="topic">
+    <h3>CNNs — Convolutional Neural Networks</h3>
+    <p>CNNs are designed for grid-like data (images). Instead of connecting every pixel to every neuron, they use small <strong>filters (kernels)</strong> that slide across the image and detect local patterns (edges, textures, shapes).</p>
+  </div>
+
+  <img class="diagram" src="../assets/img/cnn-layers.svg" alt="CNN layer flow diagram">
+  <p class="diagram-caption">CNN flow: Input → Conv+ReLU → Pool → Conv → Pool → Dense → Output</p>
+
+  <img class="diagram" src="../assets/img/cnn.png" alt="Typical CNN architecture">
+  <p class="diagram-caption">Typical CNN architecture (Wikimedia)</p>
+
+  <div class="topic">
+    <h3>Convolution — tiny numerical example</h3>
+    <p>3×3 image patch and 2×2 filter:</p>
+    <pre><code>Image:          Filter:
+1  2  0         1  0
+2  1  1         0  1
+0  1  2</code></pre>
+    <p>Top-left 2×2 region: 1·1 + 2·0 + 2·0 + 1·1 = <strong>2</strong></p>
+    <p>Slide right: 2·1 + 0·0 + 1·0 + 1·1 = <strong>3</strong></p>
+    <p>Slide down-left: 2·1 + 1·0 + 0·0 + 1·1 = <strong>3</strong></p>
+    <p>Slide down-right: 1·1 + 1·0 + 1·0 + 2·1 = <strong>3</strong></p>
+    <p>Feature map result: [[2, 3], [3, 3]]</p>
+  </div>
+
+  <div class="callout">
+    <span class="tag">Why CNNs work for images</span>
+    Local connectivity + weight sharing → far fewer parameters than a fully connected net, and translation-tolerant features.
+  </div>
+
+  <div class="video-embed">
+    <iframe src="https://www.youtube.com/embed/fNk_zzaMoSs" title="3Blue1Brown foundation" allowfullscreen loading="lazy" style="display:none"></iframe>
+    <iframe src="https://www.youtube.com/embed/aircAruvnKk" title="Neural networks" allowfullscreen loading="lazy"></iframe>
+  </div>
+  <p class="video-caption">3Blue1Brown — neural network foundations (revisit if needed before CNNs)</p>
+</section>
+
+<section class="day-section" id="rnn">
+  <div class="day-head"><span class="day-num">5.2</span><h2>RNNs — Sequences over time</h2></div>
+  <p class="day-sub">Recurrent Neural Networks · LSTM · GRU ideas</p>
+
+  <div class="topic">
+    <h3>Why recurrence?</h3>
+    <p>Text, speech, and time series have order. An RNN keeps a <strong>hidden state</strong> that is updated at every time step, so past information can influence the present prediction.</p>
+    <div class="formula">\( h_t = \tanh(W_{xh} x_t + W_{hh} h_{t-1} + b) \)</div>
+    <p>\(x_t\) = input at time t, \(h_t\) = hidden state, \(h_{t-1}\) = previous state.</p>
+  </div>
+
+  <div class="worked">
+    <div class="title">Tiny RNN step (numbers)</div>
+    <p>Suppose 1-D: x₁=0.5, h₀=0, W_xh=0.4, W_hh=0.3, b=0.1</p>
+    <ol class="steps">
+      <li>z = 0.4·0.5 + 0.3·0 + 0.1 = 0.3</li>
+      <li>h₁ = tanh(0.3) ≈ 0.29</li>
+    </ol>
+    <div class="answer">Hidden state after first step ≈ 0.29 (carries information forward)</div>
+  </div>
+
+  <div class="topic">
+    <h3>LSTM / GRU (short idea)</h3>
+    <p>Plain RNNs forget long-range information (vanishing gradients). LSTM and GRU add <strong>gates</strong> that learn what to keep, update, or forget — much better for long sentences and long time series.</p>
+  </div>
+</section>
+
+<section class="day-section" id="transformers">
+  <div class="day-head"><span class="day-num">5.3</span><h2>Transformers &amp; Attention</h2></div>
+  <p class="day-sub">The architecture behind BERT, GPT, and modern AI</p>
+
+  <img class="diagram" src="../assets/img/attention.svg" alt="Attention Query Key Value diagram">
+  <p class="diagram-caption">Attention: Query asks, Keys answer relevance, Values supply content</p>
+
+  <div class="topic">
+    <h3>Self-attention in one paragraph</h3>
+    <p>Every token looks at every other token. For each token we form a Query, Key and Value vector. Similarity of Query with all Keys (dot products) becomes weights after softmax. Output is the weighted sum of Values. This lets the model focus on relevant words no matter how far they are.</p>
+    <div class="formula">\( \text{Attention}(Q,K,V) = \mathrm{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right) V \)</div>
+  </div>
+
+  <div class="worked">
+    <div class="title">Tiny attention numbers (2 tokens)</div>
+    <p>After scaling, scores between token A and tokens [A, B] = [2.0, 0.5]</p>
+    <ol class="steps">
+      <li>softmax([2.0, 0.5]) ≈ [0.82, 0.18]</li>
+      <li>If V_A = [1, 0], V_B = [0, 1] → output ≈ 0.82·[1,0] + 0.18·[0,1] = [0.82, 0.18]</li>
+    </ol>
+    <div class="answer">Token A mostly attends to itself (0.82) but still mixes a bit of B.</div>
+  </div>
+
+  <div class="callout">
+    <span class="tag">Why Transformers won</span>
+    Parallelisable (unlike RNNs), long-range dependencies, and the same block stacks to huge models (GPT, BERT, ViT…).
+  </div>
+</section>
+
+<section class="day-section" id="optim">
+  <div class="day-head"><span class="day-num">5.4</span><h2>Optimization Techniques</h2></div>
+  <p class="day-sub">Regularization · Dropout · Learning-rate tuning</p>
+
+  <div class="topic">
+    <h3>Regularization</h3>
+    <ul>
+      <li><strong>L2 (weight decay)</strong> — add λ·‖w‖² to the loss so large weights are penalised.</li>
+      <li><strong>L1</strong> — encourages sparse weights (many zeros).</li>
+      <li><strong>Dropout</strong> — randomly set a fraction of activations to 0 during training so the net cannot rely on any single neuron.</li>
+    </ul>
+  </div>
+
+  <div class="worked">
+    <div class="title">Dropout intuition</div>
+    <p>Layer has 4 neurons. Dropout rate 0.5 → on average 2 are “off” each training step. At test time all are on, but activations are scaled. Result: ensemble-like behaviour, less overfitting.</p>
+  </div>
+
+  <div class="topic">
+    <h3>Learning-rate schedules</h3>
+    <p>Start higher, then decay (step decay, cosine, warm-up then decay). Too high → loss explodes; too low → training crawls.</p>
+  </div>
+</section>
+
+<section class="day-section" id="cloud-train">
+  <div class="day-head"><span class="day-num">5.5</span><h2>Cloud-Based Training (GPU / TPU on GCP)</h2></div>
+  <p class="day-sub">Distributed training · Vertex AI · accelerators</p>
+
+  <div class="topic">
+    <h3>Why accelerators?</h3>
+    <p>Matrix multiplies dominate deep learning. GPUs and TPUs do thousands of them in parallel. On GCP you attach them to Vertex AI training jobs or Workbench VMs.</p>
+  </div>
+
+  <div class="topic">
+    <h3>Practical pattern</h3>
+    <ol>
+      <li>Package training code + requirements in a container (or use a pre-built Vertex image).</li>
+      <li>Point the job at data in Cloud Storage / BigQuery.</li>
+      <li>Select machine type with GPU (e.g. NVIDIA T4/V100/A100) or TPU.</li>
+      <li>Enable distributed strategy if using multiple devices.</li>
+      <li>Log metrics; save checkpoints to a bucket; register the final model.</li>
+    </ol>
+  </div>
+
+  <div class="callout">
+    <span class="tag">Curriculum tasks</span>
+    Fine-tune pre-trained models · Transfer learning · Run distributed training.
+  </div>
+
+  <div class="mcq">
+    <p class="q">In self-attention, the softmax is applied to which scores?</p>
+    <button class="mcq-opt" data-correct="true">Similarity between Queries and Keys</button>
+    <button class="mcq-opt" data-correct="false">Only the Values</button>
+    <button class="mcq-opt" data-correct="false">Random noise</button>
+    <button class="mcq-opt" data-correct="false">Pixel intensities</button>
+  </div>
+
+  <div class="takeaways">
+    <h3>Module 5 — Key takeaways</h3>
+    <ul>
+      <li>CNNs: local filters + pooling for images.</li>
+      <li>RNNs/LSTM: hidden state for sequences; gates fix long-term memory.</li>
+      <li>Transformers: attention lets every token look at every other token.</li>
+      <li>Regularization + dropout + LR schedules control overfitting and training speed.</li>
+      <li>Train heavy models on GCP GPUs/TPUs via Vertex AI.</li>
+    </ul>
+  </div>
+  <p style="margin-top:28px;"><a href="../module4/index.html">← Module 4</a> · <a href="../index.html">Roadmap</a> · <a href="../module6/index.html">Module 6 →</a></p>
+</section>
+
+</main>
+<footer><div class="wrap"><p>NIAI Module 5 — Advanced AI and ML · CNN / Attention diagrams + numerical examples</p></div></footer>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
