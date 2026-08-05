@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 3 — Data Pipeline | NIAI AI/ML Course</title>
+  <meta name="description" content="Module 3: Data Preprocessing, Data Engineering with Cloud, ETL pipelines. Detailed theory with numerical examples and diagrams.">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+<div class="progress-track"><div class="progress-fill"></div></div>
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html">NIAI<span> · AI/ML</span></a>
+    <nav class="topnav">
+      <a href="../index.html">Roadmap</a>
+      <a href="../module2/index.html">Module 2</a>
+      <button class="topnav-btn" id="slideModeToggle">▶ Slides</button>
+    </nav>
+  </div>
+</header>
+<nav class="daynav wrap">
+  <a href="#prep">Preprocessing</a>
+  <a href="#encoding">Encoding &amp; Scaling</a>
+  <a href="#engineering">Data Engineering</a>
+  <a href="#etl">ETL Pipelines</a>
+</nav>
+
+<main class="wrap">
+
+<section class="day-section" id="prep">
+  <div class="day-head"><span class="day-num">03</span><h2>Module 3 — Data Pipeline</h2></div>
+  <p class="day-sub">Data Preparation · Feature Engineering · Data Analysis · Cloud Data Engineering</p>
+
+  <div class="topic">
+    <h3>Why this module matters</h3>
+    <p>Models are only as good as the data they see. In industry, 60–80% of an ML project is spent preparing data. This module teaches the exact steps: collect → clean → transform → encode → scale → split → pipeline.</p>
+  </div>
+
+  <img class="diagram" src="../assets/img/data-prep.svg" alt="Data preparation pipeline diagram">
+  <p class="diagram-caption">Data preparation flow: Raw → Clean → Encode → Scale → Split</p>
+
+  <div class="topic">
+    <h3>1. Data collection</h3>
+    <p>Sources: CSV files, databases, APIs, sensors, logs, surveys. Always record <em>where</em> the data came from and <em>when</em>.</p>
+  </div>
+
+  <div class="topic">
+    <h3>2. Data cleaning — numerical example</h3>
+    <p>Tiny student marks table (before cleaning):</p>
+    <pre><code>Name     | Math | English | Age
+Ali      | 78   | 82      | 17
+Sara     |      | 90      | 16      ← missing Math
+Ali      | 78   | 82      | 17      ← duplicate
+Bilal    | 55   | 40      | -1      ← invalid age
+Fatima   | 92   | 88      | 18</code></pre>
+    <p><strong>Actions:</strong></p>
+    <ol>
+      <li>Remove exact duplicate row (Ali appears twice).</li>
+      <li>Missing Math for Sara → impute with mean of Math column: (78+55+92)/3 = 75.</li>
+      <li>Age = −1 is impossible → set to median age of valid rows, or drop the row.</li>
+    </ol>
+  </div>
+
+  <div class="worked">
+    <div class="title">Worked Example — Mean imputation</div>
+    <p>Math scores present: 78, 55, 92. Mean = (78+55+92)/3 = <strong>75</strong>.</p>
+    <p>After cleaning:</p>
+    <pre><code>Name   | Math | English | Age
+Ali    | 78   | 82      | 17
+Sara   | 75   | 90      | 16
+Bilal  | 55   | 40      | 17   (age fixed)
+Fatima | 92   | 88      | 18</code></pre>
+    <div class="answer">4 clean rows, no missing values, no duplicates, valid ages.</div>
+  </div>
+</section>
+
+<section class="day-section" id="encoding">
+  <div class="day-head"><span class="day-num">3.1</span><h2>Encoding &amp; Scaling</h2></div>
+  <p class="day-sub">Turning text categories and different units into numbers models can use</p>
+
+  <div class="topic">
+    <h3>Label encoding vs One-hot encoding</h3>
+    <p>City column: Lahore, Karachi, Islamabad, Lahore</p>
+    <p><strong>Label encoding</strong> (order matters only if ordinal):</p>
+    <pre><code>Lahore → 0,  Karachi → 1,  Islamabad → 2</code></pre>
+    <p><strong>One-hot encoding</strong> (preferred for unordered categories):</p>
+    <pre><code>        Lahore  Karachi  Islamabad
+row1      1        0         0
+row2      0        1         0
+row3      0        0         1
+row4      1        0         0</code></pre>
+  </div>
+
+  <div class="topic">
+    <h3>Feature scaling — why and how</h3>
+    <p>Height is in cm (150–190), income is in thousands (20–200). Without scaling, income dominates distance-based algorithms (KNN, SVM, gradient descent).</p>
+  </div>
+
+  <div class="worked">
+    <div class="title">Worked Example — Min-Max scaling</div>
+    <p>Formula: \( x' = \dfrac{x - x_{\min}}{x_{\max} - x_{\min}} \)</p>
+    <p>Heights: 160, 170, 180. min=160, max=180</p>
+    <ol class="steps">
+      <li>160 → (160−160)/(180−160) = 0</li>
+      <li>170 → (170−160)/20 = 0.5</li>
+      <li>180 → (180−160)/20 = 1</li>
+    </ol>
+    <div class="answer">Scaled values: 0, 0.5, 1 (all between 0 and 1)</div>
+  </div>
+
+  <div class="worked">
+    <div class="title">Worked Example — Standardization (Z-score)</div>
+    <p>Formula: \( z = \dfrac{x - \mu}{\sigma} \)</p>
+    <p>Same heights: 160, 170, 180. Mean μ = 170. Std ≈ 8.16</p>
+    <ol class="steps">
+      <li>160 → (160−170)/8.16 ≈ −1.22</li>
+      <li>170 → 0</li>
+      <li>180 → +1.22</li>
+    </ol>
+    <div class="answer">Mean becomes 0, std becomes 1. Preferred for many linear models and neural nets.</div>
+  </div>
+
+  <div class="callout">
+    <span class="tag">Rule of thumb</span>
+    Tree-based models (Decision Tree, Random Forest, XGBoost) usually do <strong>not</strong> need scaling. Distance-based and gradient-based models do.
+  </div>
+</section>
+
+<section class="day-section" id="engineering">
+  <div class="day-head"><span class="day-num">3.2</span><h2>Data Engineering with Cloud</h2></div>
+  <p class="day-sub">BigQuery · Dataflow · Cloud storage patterns</p>
+
+  <div class="topic">
+    <h3>Where data lives in the cloud</h3>
+    <ul>
+      <li><strong>Cloud Storage</strong> — raw files (CSV, Parquet, images)</li>
+      <li><strong>BigQuery</strong> — analytical warehouse; SQL + BigQuery ML</li>
+      <li><strong>Dataflow</strong> — batch and streaming transforms (Apache Beam)</li>
+    </ul>
+  </div>
+
+  <div class="topic">
+    <h3>Typical cloud data path</h3>
+    <ol>
+      <li>Upload raw CSV/JSON to a Cloud Storage bucket</li>
+      <li>Load or federate into BigQuery</li>
+      <li>Clean and join with SQL (or Dataflow for heavy transforms)</li>
+      <li>Export clean features to a training table or TFRecord</li>
+      <li>Train on Vertex AI using that table</li>
+    </ol>
+  </div>
+
+  <div class="callout">
+    <span class="tag">Curriculum assignment</span>
+    Build an end-to-end data pipeline using BigQuery ML and Dataflow. Perform data wrangling and transformation using cloud tools (≈ 1.5 hr/week).
+  </div>
+</section>
+
+<section class="day-section" id="etl">
+  <div class="day-head"><span class="day-num">3.3</span><h2>Data Pipelines — ETL, Batch &amp; Stream</h2></div>
+  <p class="day-sub">Extract · Transform · Load · Automation</p>
+
+  <img class="diagram" src="../assets/img/ml-pipeline.svg" alt="Full ML pipeline diagram">
+  <p class="diagram-caption">Full ML pipeline — data preparation is steps 1–3</p>
+
+  <div class="topic">
+    <h3>ETL in one sentence</h3>
+    <p><strong>Extract</strong> data from sources → <strong>Transform</strong> it (clean, join, aggregate) → <strong>Load</strong> into a destination (warehouse or feature store).</p>
+  </div>
+
+  <div class="topic">
+    <h3>Batch vs Stream</h3>
+    <ul>
+      <li><strong>Batch</strong> — process a whole file or table once per hour/day (nightly sales report).</li>
+      <li><strong>Stream</strong> — process each event as it arrives (fraud score on every transaction).</li>
+    </ul>
+  </div>
+
+  <div class="topic">
+    <h3>Automation</h3>
+    <p>Use schedulers (Cloud Composer / Airflow, Cloud Scheduler) so the same cleaning and feature jobs run every night without manual clicks.</p>
+  </div>
+
+  <div class="mcq">
+    <p class="q">After Min-Max scaling, every feature value lies in which range?</p>
+    <button class="mcq-opt" data-correct="false">−1 to +1</button>
+    <button class="mcq-opt" data-correct="true">0 to 1</button>
+    <button class="mcq-opt" data-correct="false">0 to 100</button>
+    <button class="mcq-opt" data-correct="false">Any real number</button>
+  </div>
+
+  <div class="takeaways">
+    <h3>Module 3 — Key takeaways</h3>
+    <ul>
+      <li>Clean missing values, duplicates and invalid entries before any modelling.</li>
+      <li>Encode categories (one-hot for unordered) and scale numeric features when needed.</li>
+      <li>Cloud path: Storage → BigQuery / Dataflow → clean features → Vertex AI.</li>
+      <li>ETL + scheduling turns one-off scripts into reliable pipelines.</li>
+    </ul>
+  </div>
+  <p style="margin-top:28px;"><a href="../module2/index.html">← Module 2</a> · <a href="../index.html">Roadmap</a> · <a href="../module4/index.html">Module 4 →</a></p>
+</section>
+
+</main>
+<footer><div class="wrap"><p>NIAI Module 3 — Data Pipeline · Embedded diagrams + numerical examples</p></div></footer>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

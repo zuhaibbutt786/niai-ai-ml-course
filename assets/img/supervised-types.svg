@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" font-family="Segoe UI, system-ui, sans-serif">
+  <rect width="720" height="280" fill="#f8fafc"/>
+  <text x="360" y="28" text-anchor="middle" fill="#0f172a" font-size="16" font-weight="700">Supervised Learning — Two Main Tasks</text>
+
+  <!-- Regression box -->
+  <rect x="30" y="50" width="300" height="200" rx="12" fill="#fff" stroke="#4f46e5" stroke-width="2"/>
+  <rect x="30" y="50" width="300" height="40" rx="12" fill="#4f46e5"/>
+  <rect x="30" y="70" width="300" height="20" fill="#4f46e5"/>
+  <text x="180" y="76" text-anchor="middle" fill="#fff" font-size="15" font-weight="600">Regression</text>
+  <text x="180" y="110" text-anchor="middle" fill="#0f172a" font-size="13">Predict a continuous number</text>
+  <text x="50" y="140" fill="#334155" font-size="13">• House price (Rs)</text>
+  <text x="50" y="162" fill="#334155" font-size="13">• Temperature (°C)</text>
+  <text x="50" y="184" fill="#334155" font-size="13">• Sales next month</text>
+  <text x="50" y="206" fill="#334155" font-size="13">• Age of a person</text>
+  <text x="180" y="235" text-anchor="middle" fill="#4f46e5" font-size="12" font-weight="600">Output: real number</text>
+
+  <!-- Classification box -->
+  <rect x="390" y="50" width="300" height="200" rx="12" fill="#fff" stroke="#0ea5e9" stroke-width="2"/>
+  <rect x="390" y="50" width="300" height="40" rx="12" fill="#0ea5e9"/>
+  <rect x="390" y="70" width="300" height="20" fill="#0ea5e9"/>
+  <text x="540" y="76" text-anchor="middle" fill="#fff" font-size="15" font-weight="600">Classification</text>
+  <text x="540" y="110" text-anchor="middle" fill="#0f172a" font-size="13">Predict a category / label</text>
+  <text x="410" y="140" fill="#334155" font-size="13">• Spam or Not Spam</text>
+  <text x="410" y="162" fill="#334155" font-size="13">• Cat / Dog / Bird</text>
+  <text x="410" y="184" fill="#334155" font-size="13">• Disease: Yes / No</text>
+  <text x="410" y="206" fill="#334155" font-size="13">• Sentiment: + / −</text>
+  <text x="540" y="235" text-anchor="middle" fill="#0ea5e9" font-size="12" font-weight="600">Output: class label</text>
+</svg>

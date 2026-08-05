@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200" font-family="Segoe UI, system-ui, sans-serif">
+  <rect width="800" height="200" fill="#f8fafc"/>
+  <text x="400" y="28" text-anchor="middle" fill="#0f172a" font-size="15" font-weight="700">Data Preparation Pipeline</text>
+
+  <rect x="20" y="55" width="120" height="70" rx="8" fill="#4f46e5"/>
+  <text x="80" y="85" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">Raw Data</text>
+  <text x="80" y="105" text-anchor="middle" fill="#c7d2fe" font-size="11">CSV · DB · API</text>
+
+  <path d="M145 90 L175 90" stroke="#4f46e5" stroke-width="2" marker-end="url(#a)"/>
+  <defs><marker id="a" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L5,3 L0,6 Z" fill="#4f46e5"/></marker></defs>
+
+  <rect x="180" y="55" width="120" height="70" rx="8" fill="#6366f1"/>
+  <text x="240" y="85" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">Clean</text>
+  <text x="240" y="105" text-anchor="middle" fill="#c7d2fe" font-size="11">Missing · Duplicates</text>
+
+  <path d="M305 90 L335 90" stroke="#4f46e5" stroke-width="2" marker-end="url(#a)"/>
+
+  <rect x="340" y="55" width="120" height="70" rx="8" fill="#7c3aed"/>
+  <text x="400" y="85" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">Encode</text>
+  <text x="400" y="105" text-anchor="middle" fill="#ede9fe" font-size="11">One-hot · Label</text>
+
+  <path d="M465 90 L495 90" stroke="#4f46e5" stroke-width="2" marker-end="url(#a)"/>
+
+  <rect x="500" y="55" width="120" height="70" rx="8" fill="#8b5cf6"/>
+  <text x="560" y="85" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">Scale</text>
+  <text x="560" y="105" text-anchor="middle" fill="#ede9fe" font-size="11">MinMax · Std</text>
+
+  <path d="M625 90 L655 90" stroke="#4f46e5" stroke-width="2" marker-end="url(#a)"/>
+
+  <rect x="660" y="55" width="120" height="70" rx="8" fill="#a855f7"/>
+  <text x="720" y="85" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">Split</text>
+  <text x="720" y="105" text-anchor="middle" fill="#f3e8ff" font-size="11">Train · Val · Test</text>
+
+  <text x="400" y="170" text-anchor="middle" fill="#64748b" font-size="12">Goal: clean, numeric, scaled features ready for any model</text>
+</svg>

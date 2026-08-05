@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 4 — Basic AI and ML | NIAI Course</title>
+  <meta name="description" content="Module 4: Supervised Learning, Decision Trees, Ensembles, Perceptron, Neural Networks, Model Selection. Numerical examples and diagrams.">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+<div class="progress-track"><div class="progress-fill"></div></div>
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html">NIAI<span> · AI/ML</span></a>
+    <nav class="topnav">
+      <a href="../index.html">Roadmap</a>
+      <a href="../module3/index.html">Module 3</a>
+      <button class="topnav-btn" id="slideModeToggle">▶ Slides</button>
+    </nav>
+  </div>
+</header>
+<nav class="daynav wrap">
+  <a href="#supervised">Supervised</a>
+  <a href="#trees">Trees &amp; Ensembles</a>
+  <a href="#nn">Neural Nets</a>
+  <a href="#selection">Model Selection</a>
+</nav>
+
+<main class="wrap">
+
+<section class="day-section" id="supervised">
+  <div class="day-head"><span class="day-num">04</span><h2>Module 4 — Basic AI and ML</h2></div>
+  <p class="day-sub">Supervised Learning · Decision Trees · Perceptron &amp; Neural Nets · Model Selection</p>
+
+  <img class="diagram" src="../assets/img/supervised_ml.png" alt="Supervised machine learning overview">
+  <p class="diagram-caption">Supervised learning in a nutshell — labeled examples teach the model (Wikimedia)</p>
+
+  <img class="diagram" src="../assets/img/supervised-types.svg" alt="Regression vs Classification">
+  <p class="diagram-caption">Regression predicts a number · Classification predicts a label</p>
+
+  <div class="topic">
+    <h3>Linear regression — tiny numerical example</h3>
+    <p>Predict exam score from hours studied. Data:</p>
+    <pre><code>Hours (x) | Score (y)
+1         | 50
+2         | 60
+3         | 70
+4         | 80</code></pre>
+    <p>Perfect line: \( y = 10x + 40 \). For 5 hours → predicted score = 10×5 + 40 = <strong>90</strong>.</p>
+  </div>
+
+  <div class="worked">
+    <div class="title">Worked Example — Logistic regression idea (classification)</div>
+    <p>We want P(pass | hours). Logistic function squeezes any number into (0, 1):</p>
+    <div class="formula">\( \sigma(z) = \dfrac{1}{1 + e^{-z}} \quad z = w·x + b \)</div>
+    <p>If z = 2 → σ(2) ≈ 0.88 (88% chance of pass). Threshold 0.5 → predict “Pass”.</p>
+    <div class="answer">Same linear formula as regression, but passed through a sigmoid for probability.</div>
+  </div>
+
+  <div class="topic">
+    <h3>k-Nearest Neighbours (KNN) — intuition</h3>
+    <p>To classify a new point, look at the k closest training points and take a majority vote. Distance usually Euclidean:</p>
+    <div class="formula">\( d = \sqrt{(x_1-x_2)^2 + (y_1-y_2)^2} \)</div>
+  </div>
+
+  <div class="worked">
+    <div class="title">Worked Example — KNN (k=3)</div>
+    <p>New point at (2, 2). Neighbours:</p>
+    <pre><code>Point A (1,1) class=Red   distance=√2≈1.41
+Point B (3,2) class=Blue  distance=1
+Point C (2,3) class=Red   distance=1
+Point D (5,5) class=Blue  distance=√18≈4.24</code></pre>
+    <p>Three nearest: B (Blue), C (Red), A (Red) → majority <strong>Red</strong>.</p>
+    <div class="answer">Predicted class = Red</div>
+  </div>
+
+  <div class="topic">
+    <h3>Naive Bayes — quick idea</h3>
+    <p>Uses Bayes’ theorem (Module 1) assuming features are independent. Very fast for text (spam filters).</p>
+  </div>
+
+  <div class="topic">
+    <h3>Support Vector Machine (SVM) — margin idea</h3>
+    <p>Finds the line (hyperplane) that separates classes with the <strong>largest margin</strong>. Support vectors are the points closest to the boundary.</p>
+  </div>
+</section>
+
+<section class="day-section" id="trees">
+  <div class="day-head"><span class="day-num">4.2</span><h2>Decision Trees &amp; Ensemble Models</h2></div>
+  <p class="day-sub">Unit 2 · Trees, Random Forests, Boosting</p>
+
+  <div class="topic">
+    <h3>How a decision tree works</h3>
+    <p>Ask a sequence of yes/no questions about features until you reach a leaf (prediction).</p>
+    <pre><code>Is hours ≥ 3?
+├── Yes → Is previous_score ≥ 60?
+│         ├── Yes → Predict Pass
+│         └── No  → Predict Fail
+└── No  → Predict Fail</code></pre>
+  </div>
+
+  <div class="worked">
+    <div class="title">Worked Example — Gini impurity (tiny)</div>
+    <p>Node has 4 samples: 3 Pass, 1 Fail.</p>
+    <div class="formula">Gini = 1 − (p_pass² + p_fail²) = 1 − (0.75² + 0.25²) = 1 − (0.5625 + 0.0625) = 0.375</div>
+    <p>Pure node (all Pass) → Gini = 0. Tree algorithms pick splits that reduce Gini the most.</p>
+    <div class="answer">Lower Gini = purer node = better split.</div>
+  </div>
+
+  <div class="topic">
+    <h3>Ensemble methods</h3>
+    <ul>
+      <li><strong>Bagging / Random Forest</strong> — many trees on random subsets; average or vote. Reduces variance.</li>
+      <li><strong>Boosting</strong> (AdaBoost, Gradient Boosting, XGBoost) — trees trained sequentially, each fixing errors of the previous. Often highest accuracy on tabular data.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="day-section" id="nn">
+  <div class="day-head"><span class="day-num">4.3</span><h2>Perceptron &amp; Neural Networks</h2></div>
+  <p class="day-sub">Unit 3 · From single neuron to multi-layer nets</p>
+
+  <img class="diagram" src="../assets/img/cnn.png" alt="Typical convolutional neural network architecture">
+  <p class="diagram-caption">Typical CNN architecture (convolution → pooling → fully connected) — Wikimedia</p>
+
+  <div class="topic">
+    <h3>The perceptron (single neuron)</h3>
+    <p>Inputs x₁, x₂, … → multiply by weights w₁, w₂, … → add bias b → activation function → output.</p>
+    <div class="formula">\( z = w_1 x_1 + w_2 x_2 + b \qquad \hat{y} = \sigma(z) \)</div>
+  </div>
+
+  <div class="worked">
+    <div class="title">Worked Example — One forward pass</div>
+    <p>x = [0.5, 1.0], w = [0.4, −0.2], b = 0.1, activation = step (1 if z≥0 else 0)</p>
+    <ol class="steps">
+      <li>z = 0.4×0.5 + (−0.2)×1.0 + 0.1 = 0.2 − 0.2 + 0.1 = 0.1</li>
+      <li>σ(0.1) = 1 (because 0.1 ≥ 0)</li>
+    </ol>
+    <div class="answer">Output = 1</div>
+  </div>
+
+  <div class="topic">
+    <h3>Multi-layer network</h3>
+    <p>Stack layers of neurons. Hidden layers learn intermediate representations. Training uses the same gradient descent you practised in Module 1 (back-propagation computes the gradients efficiently).</p>
+  </div>
+
+  <div class="video-embed">
+    <iframe src="https://www.youtube.com/embed/aircAruvnKk" title="3Blue1Brown neural networks" allowfullscreen loading="lazy"></iframe>
+  </div>
+  <p class="video-caption">3Blue1Brown — But what is a neural network? (visual foundation)</p>
+</section>
+
+<section class="day-section" id="selection">
+  <div class="day-head"><span class="day-num">4.4</span><h2>Model Selection — Bias, Variance, Metrics</h2></div>
+  <p class="day-sub">Unit 4 · Bias-variance · Evaluation metrics · Confusion matrix</p>
+
+  <div class="topic">
+    <h3>Bias–Variance trade-off</h3>
+    <ul>
+      <li><strong>High bias</strong> (underfit) — model too simple, misses patterns (straight line on curved data).</li>
+      <li><strong>High variance</strong> (overfit) — model too complex, memorizes noise, fails on new data.</li>
+      <li>Goal: sweet spot that generalises.</li>
+    </ul>
+  </div>
+
+  <div class="topic">
+    <h3>Confusion matrix (binary classification)</h3>
+    <pre><code>                Predicted Yes   Predicted No
+Actual Yes      True Positive   False Negative
+Actual No       False Positive  True Negative</code></pre>
+  </div>
+
+  <div class="worked">
+    <div class="title">Worked Example — Metrics from a confusion matrix</div>
+    <p>TP=40, FP=10, FN=5, TN=45</p>
+    <ol class="steps">
+      <li>Accuracy = (TP+TN)/total = 85/100 = 0.85</li>
+      <li>Precision = TP/(TP+FP) = 40/50 = 0.80</li>
+      <li>Recall = TP/(TP+FN) = 40/45 ≈ 0.89</li>
+      <li>F1 = 2 · (P·R)/(P+R) ≈ 0.84</li>
+    </ol>
+    <div class="answer">Accuracy 85%, Precision 80%, Recall 89%, F1 ≈ 84%</div>
+  </div>
+
+  <div class="callout">
+    <span class="tag">Curriculum assignment</span>
+    Build and train models · Tune hyperparameters · Compare model types on a small dataset (≈ 1.5 hr/week).
+  </div>
+
+  <div class="mcq">
+    <p class="q">A model that fits the training data almost perfectly but fails on new data is suffering from:</p>
+    <button class="mcq-opt" data-correct="false">High bias</button>
+    <button class="mcq-opt" data-correct="true">High variance (overfitting)</button>
+    <button class="mcq-opt" data-correct="false">Perfect generalisation</button>
+    <button class="mcq-opt" data-correct="false">Underfitting</button>
+  </div>
+
+  <div class="takeaways">
+    <h3>Module 4 — Key takeaways</h3>
+    <ul>
+      <li>Supervised = learn from labeled examples (regression or classification).</li>
+      <li>KNN, Naive Bayes, SVM, Trees, Forests, Boosting are classic baselines.</li>
+      <li>A neuron computes weighted sum + activation; networks stack many neurons.</li>
+      <li>Always evaluate with the right metric and watch bias–variance.</li>
+    </ul>
+  </div>
+  <p style="margin-top:28px;"><a href="../module3/index.html">← Module 3</a> · <a href="../index.html">Roadmap</a></p>
+</section>
+
+</main>
+<footer><div class="wrap"><p>NIAI Module 4 — Basic AI and ML · Diagrams + numerical examples + 3Blue1Brown</p></div></footer>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
