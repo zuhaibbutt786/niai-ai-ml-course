@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 1 — Foundation | NIAI AI/ML Course</title>
+  <meta name="description" content="Module 1 Foundation: Mathematics for AI/ML, Probability & Statistics, Programming Foundations. Detailed theory with numerical examples for beginners.">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<div class="progress-track"><div class="progress-fill"></div></div>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html">NIAI<span> · AI/ML</span></a>
+    <nav class="topnav">
+      <a href="../index.html">Roadmap</a>
+      <button class="topnav-btn" id="slideModeToggle">▶ Slides</button>
+    </nav>
+  </div>
+</header>
+
+<nav class="daynav wrap">
+  <a href="#math">1 · Mathematics</a>
+  <a href="#vectors">Vectors</a>
+  <a href="#matrices">Matrices</a>
+  <a href="#calculus">Calculus &amp; Gradients</a>
+  <a href="#optimization">Optimization</a>
+  <a href="#probability">2 · Probability</a>
+  <a href="#programming">3 · Programming</a>
+</nav>
+
+<main class="wrap">
+
+  <!-- ========== INTRO ========== -->
+  <section class="day-section" id="math">
+    <div class="day-head">
+      <span class="day-num">01</span>
+      <h2>Module 1 — Foundation</h2>
+    </div>
+    <p class="day-sub">Mathematics · Probability · Programming &nbsp;·&nbsp; The base every AI engineer needs</p>
+
+    <div class="topic">
+      <h3>What you will learn in this module</h3>
+      <p>This module builds the three pillars you need before writing any serious machine-learning model:</p>
+      <ol>
+        <li><strong>Mathematics</strong> — vectors, matrices, gradients, and optimization (the language of models)</li>
+        <li><strong>Probability &amp; Statistics</strong> — how we reason about uncertainty and evaluate models</li>
+        <li><strong>Programming</strong> — Python + NumPy, Pandas, Matplotlib, Scikit-learn (the tools)</li>
+      </ol>
+      <p>Everything is explained from zero, with small numbers you can calculate by hand, so you truly understand before you code.</p>
+    </div>
+
+    <div class="callout">
+      <span class="tag">How to use this page</span>
+      Click <strong>▶ Slides</strong> in the top bar (or press the button) to turn every section into a full-screen presentation. Use ← → arrow keys or the on-screen buttons. Press Esc to exit.
+    </div>
+  </section>
+
+  <!-- ========== VECTORS ========== -->
+  <section class="day-section" id="vectors">
+    <div class="day-head">
+      <span class="day-num">1.1</span>
+      <h2>Vectors — The Building Blocks of Data</h2>
+    </div>
+    <p class="day-sub">Unit 1 · Mathematics for AI/ML · Lesson 1</p>
+
+    <div class="topic">
+      <h3>Why vectors matter</h3>
+      <p>Every piece of data that enters an AI model is turned into numbers arranged in a special way. That arrangement is called a <strong>vector</strong>.</p>
+      <ul>
+        <li>An image of a cat → a long list of numbers (pixel values)</li>
+        <li>A sentence → a list of numbers that capture its meaning</li>
+        <li>A student’s marks in 5 subjects → a vector of 5 numbers</li>
+        <li>A house (area, bedrooms, age, location) → a vector of features</li>
+      </ul>
+      <p>If you understand vectors deeply, you understand the language that machines speak.</p>
+    </div>
+
+    <div class="topic">
+      <h3>What is a vector? (Simple definition)</h3>
+      <p>A <strong>vector</strong> is an ordered list of numbers. We write it like this:</p>
+      <div class="formula">
+        <span class="label">Row form</span>
+        v = [3, 4]
+      </div>
+      <div class="formula">
+        <span class="label">Column form</span>
+        v = [ 3 ]<br>&nbsp;&nbsp;&nbsp;&nbsp;[ 4 ]
+      </div>
+      <p>The numbers inside are called <strong>components</strong>. The number of components is the <strong>dimension</strong>.</p>
+      <ul>
+        <li>[3, 4] is a <strong>2-dimensional</strong> vector (lives on a plane)</li>
+        <li>[1, 0, −2] is a <strong>3-dimensional</strong> vector</li>
+        <li>In real AI we routinely use vectors with hundreds or thousands of dimensions</li>
+      </ul>
+    </div>
+
+    <div class="topic">
+      <h3>Two ways to look at the same vector</h3>
+      <p><strong>1. Algebraic view</strong> — just a list of numbers (useful for calculation).</p>
+      <p><strong>2. Geometric view</strong> — an arrow starting from the origin (useful for intuition).</p>
+      <p>The vector [3, 4] is an arrow that goes 3 units right and 4 units up. Its <strong>length</strong> (also called magnitude or norm) is the straight-line distance from the origin to the tip.</p>
+      <p>Using Pythagoras:</p>
+      <div class="formula">
+        ‖v‖ = √(3² + 4²) = √(9 + 16) = √25 = 5
+      </div>
+    </div>
+
+    <div class="formula">
+      <span class="label">General formula for magnitude</span>
+      ‖v‖ = √(v₁² + v₂² + … + vₙ²)
+    </div>
+
+    <div class="worked">
+      <div class="title">Worked Example 1 — Magnitude</div>
+      <p><strong>Problem:</strong> Find the magnitude of a = [6, 8].</p>
+      <ol class="steps">
+        <li>Write the formula: ‖a‖ = √(6² + 8²)</li>
+        <li>Squares: 6² = 36, 8² = 64</li>
+        <li>Add: 36 + 64 = 100</li>
+        <li>Square root: √100 = 10</li>
+      </ol>
+      <div class="answer">Answer: The magnitude is 10.</div>
+    </div>
+
+    <div class="topic">
+      <h3>Vector addition</h3>
+      <p>To add two vectors of the same dimension, add the corresponding components:</p>
+      <div class="formula">
+        u + v = [u₁ + v₁, u₂ + v₂, …, uₙ + vₙ]
+      </div>
+      <p>Geometrically: place the tail of the second vector at the tip of the first. The resulting arrow is the sum.</p>
+    </div>
+
+    <div class="worked">
+      <div class="title">Worked Example 2 — Addition</div>
+      <p><strong>Problem:</strong> u = [2, 5], v = [−1, 3]. Find u + v.</p>
+      <ol class="steps">
+        <li>First components: 2 + (−1) = 1</li>
+        <li>Second components: 5 + 3 = 8</li>
+      </ol>
+      <div class="answer">Answer: u + v = [1, 8]</div>
+    </div>
+
+    <div class="topic">
+      <h3>Scalar multiplication</h3>
+      <p>A <strong>scalar</strong> is just an ordinary number. Multiplying a vector by a scalar multiplies every component:</p>
+      <div class="formula">
+        c · v = [c·v₁, c·v₂, …, c·vₙ]
+      </div>
+      <ul>
+        <li>c &gt; 1 → vector gets longer (stretched)</li>
+        <li>0 &lt; c &lt; 1 → vector gets shorter</li>
+        <li>c &lt; 0 → vector points in the opposite direction</li>
+      </ul>
+      <p>This is exactly what happens when a neural network multiplies inputs by weights.</p>
+    </div>
+
+    <div class="worked">
+      <div class="title">Worked Example 3 — Scalar Multiplication</div>
+      <p><strong>Problem:</strong> v = [4, −2]. Compute 3v and −0.5v.</p>
+      <ol class="steps">
+        <li>3v = [3×4, 3×(−2)] = [12, −6]</li>
+        <li>−0.5v = [−0.5×4, −0.5×(−2)] = [−2, 1]</li>
+      </ol>
+      <div class="answer">Answer: 3v = [12, −6], −0.5v = [−2, 1]</div>
+    </div>
+
+    <div class="topic">
+      <h3>The Dot Product — the most important operation</h3>
+      <p>The <strong>dot product</strong> of two vectors is a single number:</p>
+      <div class="formula">
+        u · v = u₁v₁ + u₂v₂ + … + uₙvₙ
+      </div>
+      <p>It also has a geometric meaning:</p>
+      <div class="formula">
+        u · v = ‖u‖ × ‖v‖ × cos θ
+      </div>
+      <p>where θ is the angle between the two vectors.</p>
+      <ul>
+        <li>θ = 0° (same direction) → cos θ = 1 → largest positive value</li>
+        <li>θ = 90° (perpendicular) → cos θ = 0 → dot product is zero</li>
+        <li>θ = 180° (opposite) → cos θ = −1 → largest negative value</li>
+      </ul>
+      <p>This single idea powers recommendation systems, attention in Transformers, and similarity search.</p>
+    </div>
+
+    <div class="worked">
+      <div class="title">Worked Example 4 — Dot Product</div>
+      <p><strong>Problem:</strong> a = [1, 2, 3], b = [4, −5, 6]. Compute a · b.</p>
+      <ol class="steps">
+        <li>1×4 = 4</li>
+        <li>2×(−5) = −10</li>
+        <li>3×6 = 18</li>
+        <li>Add: 4 + (−10) + 18 = 12</li>
+      </ol>
+      <div class="answer">Answer: a · b = 12</div>
+    </div>
+
+    <div class="topic">
+      <h3>Cosine Similarity — measuring how alike two things are</h3>
+      <p>From the geometric form we can isolate the cosine:</p>
+      <div class="formula">
+        cos θ = (u · v) / (‖u‖ × ‖v‖)
+      </div>
+      <p>This value always lies between −1 and +1. Values close to +1 mean the vectors point in almost the same direction (very similar).</p>
+    </div>
+
+    <div class="worked">
+      <div class="title">Worked Example 5 — Cosine Similarity (tiny dataset)</div>
+      <p><strong>Problem:</strong> Two students answered a 3-question quiz.<br>
+        Student A = [8, 6, 9]<br>
+        Student B = [7, 5, 10]<br>
+        How similar are their answer patterns?</p>
+      <ol class="steps">
+        <li>Dot product: 8×7 + 6×5 + 9×10 = 56 + 30 + 90 = 176</li>
+        <li>‖A‖ = √(8² + 6² + 9²) = √(64+36+81) = √181 ≈ 13.45</li>
+        <li>‖B‖ = √(7² + 5² + 10²) = √(49+25+100) = √174 ≈ 13.19</li>
+        <li>Cosine = 176 / (13.45 × 13.19) ≈ 176 / 177.4 ≈ 0.992</li>
+      </ol>
+      <div class="answer">Answer: Cosine similarity ≈ 0.992 (extremely similar)</div>
+    </div>
+
+    <div class="callout">
+      <span class="tag">Real AI systems</span>
+      Image search, ChatGPT attention, Netflix recommendations, and spam filters all rely on vectors and cosine similarity (or the raw dot product).
+    </div>
+
+    <div class="mcq">
+      <p class="q">Quick check: What is the cosine similarity between u = [3, 0] and v = [0, 4]?</p>
+      <button class="mcq-opt" data-correct="false">1 (identical direction)</button>
+      <button class="mcq-opt" data-correct="true">0 (perpendicular)</button>
+      <button class="mcq-opt" data-correct="false">0.5</button>
+      <button class="mcq-opt" data-correct="false">Cannot be calculated</button>
+    </div>
+
+    <div class="takeaways">
+      <h3>Key takeaways — Vectors</h3>
+      <ul>
+        <li>A vector is an ordered list of numbers (and also an arrow from the origin).</li>
+        <li>Magnitude ‖v‖ = √(Σ vᵢ²) measures length.</li>
+        <li>Addition and scalar multiplication are component-wise.</li>
+        <li>Dot product u·v = Σ uᵢvᵢ = ‖u‖‖v‖ cos θ is the key operation.</li>
+        <li>Cosine similarity = normalized dot product → measures directional similarity.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ========== MATRICES ========== -->
+  <section class="day-section" id="matrices">
+    <div class="day-head">
+      <span class="day-num">1.2</span>
+      <h2>Matrices — Organizing Data &amp; Transformations</h2>
+    </div>
+    <p class="day-sub">Unit 1 · Mathematics for AI/ML · Lesson 2</p>
+
+    <div class="topic">
+      <h3>What is a matrix?</h3>
+      <p>A <strong>matrix</strong> is a rectangular table of numbers arranged in rows and columns. We say it is an <em>m × n</em> matrix if it has m rows and n columns.</p>
+      <div class="formula">
+        A = | 1  2  3 |<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;| 4  5  6 |
+      </div>
+      <p>This is a 2 × 3 matrix (2 rows, 3 columns).</p>
+      <p>In machine learning:</p>
+      <ul>
+        <li>A whole dataset is often stored as a matrix (each row = one example)</li>
+        <li>The weights of a neural-network layer are a matrix</li>
+        <li>Images can be flattened into matrices of pixel values</li>
+      </ul>
+    </div>
+
+    <div class="topic">
+      <h3>Matrix-vector multiplication</h3>
+      <p>When you multiply a matrix by a vector, you get a new vector. Each component of the result is the <strong>dot product</strong> of one matrix row with the vector.</p>
+      <div class="formula">
+        A · x = result vector
+      </div>
+    </div>
+
+    <div class="worked">
+      <div class="title">Worked Example — Matrix × Vector</div>
+      <p><strong>Problem:</strong><br>
+        A = | 1  2 | &nbsp;&nbsp; x = | 3 |<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;| 0  1 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 4 |</p>
+      <ol class="steps">
+        <li>First row · x = 1×3 + 2×4 = 3 + 8 = 11</li>
+        <li>Second row · x = 0×3 + 1×4 = 0 + 4 = 4</li>
+      </ol>
+      <div class="answer">Answer: A · x = [11, 4]</div>
+    </div>
+
+    <div class="topic">
+      <h3>Matrix-matrix multiplication</h3>
+      <p>To multiply two matrices A (m × n) and B (n × p) the result is an m × p matrix. Each entry is the dot product of a row of A with a column of B.</p>
+      <div class="callout warn">
+        <span class="tag">Important rule</span>
+        The number of columns of the first matrix must equal the number of rows of the second matrix.
+      </div>
+    </div>
+
+    <div class="worked">
+      <div class="title">Worked Example — Matrix × Matrix (tiny numbers)</div>
+      <p><strong>Problem:</strong><br>
+        A = | 1  2 | &nbsp;&nbsp; B = | 5  6 |<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;| 3  4 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 7  8 |</p>
+      <ol class="steps">
+        <li>Top-left: 1×5 + 2×7 = 5 + 14 = 19</li>
+        <li>Top-right: 1×6 + 2×8 = 6 + 16 = 22</li>
+        <li>Bottom-left: 3×5 + 4×7 = 15 + 28 = 43</li>
+        <li>Bottom-right: 3×6 + 4×8 = 18 + 32 = 50</li>
+      </ol>
+      <div class="answer">Answer: A · B = | 19  22 |<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 43  50 |</div>
+    </div>
+
+    <div class="callout">
+      <span class="tag">Why this matters in neural networks</span>
+      One layer of a neural network is basically: output = activation( WeightMatrix · input + bias ). Understanding matrix multiplication is understanding how information flows through the network.
+    </div>
+
+    <div class="mcq">
+      <p class="q">If A is 3×2 and B is 2×4, what is the shape of A · B?</p>
+      <button class="mcq-opt" data-correct="false">2 × 2</button>
+      <button class="mcq-opt" data-correct="true">3 × 4</button>
+      <button class="mcq-opt" data-correct="false">3 × 2</button>
+      <button class="mcq-opt" data-correct="false">Cannot multiply</button>
+    </div>
+
+    <div class="takeaways">
+      <h3>Key takeaways — Matrices</h3>
+      <ul>
+        <li>A matrix is a table of numbers (m rows × n columns).</li>
+        <li>Matrix × vector produces a new vector (each entry = row · vector).</li>
+        <li>Matrix × matrix is defined only when the inner dimensions match.</li>
+        <li>Neural-network layers are matrix multiplications + a non-linear activation.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ========== CALCULUS & GRADIENTS ========== -->
+  <section class="day-section" id="calculus">
+    <div class="day-head">
+      <span class="day-num">1.3</span>
+      <h2>Calculus &amp; Gradients — How Models Learn</h2>
+    </div>
+    <p class="day-sub">Unit 1 · Mathematics for AI/ML · Lesson 3</p>
+
+    <div class="topic">
+      <h3>Derivative — rate of change</h3>
+      <p>The derivative of a function f(x) at a point tells you how steep the curve is at that point (slope of the tangent line).</p>
+      <div class="formula">
+        f'(x) = lim<sub>h→0</sub> [f(x+h) − f(x)] / h
+      </div>
+      <p>For simple power functions we use the power rule:</p>
+      <div class="formula">
+        If f(x) = xⁿ &nbsp; then &nbsp; f'(x) = n · xⁿ⁻¹
+      </div>
+    </div>
+
+    <div class="worked">
+      <div class="title">Worked Example — Derivative</div>
+      <p><strong>Problem:</strong> f(x) = 3x² + 2x − 5. Find f'(x).</p>
+      <ol class="steps">
+        <li>Derivative of 3x² = 3 · 2x = 6x</li>
+        <li>Derivative of 2x = 2</li>
+        <li>Derivative of −5 = 0</li>
+      </ol>
+      <div class="answer">Answer: f'(x) = 6x + 2</div>
+    </div>
+
+    <div class="topic">
+      <h3>Gradient — derivative for many variables</h3>
+      <p>When a function depends on several variables (for example loss depends on many weights), the <strong>gradient</strong> is the vector of all partial derivatives.</p>
+      <div class="formula">
+        ∇f = [ ∂f/∂x₁ , ∂f/∂x₂ , … , ∂f/∂xₙ ]
+      </div>
+      <p>The gradient points in the direction of <strong>steepest increase</strong>. Therefore −∇f points in the direction of steepest decrease — exactly the direction we want when we minimize a loss function.</p>
+    </div>
+
+    <div class="worked">
+      <div class="title">Worked Example — Gradient of a simple function</div>
+      <p><strong>Problem:</strong> f(x, y) = x² + 3y² − 2xy. Compute the gradient at the point (1, 2).</p>
+      <ol class="steps">
+        <li>∂f/∂x = 2x − 2y &nbsp; → at (1,2): 2(1) − 2(2) = 2 − 4 = −2</li>
+        <li>∂f/∂y = 6y − 2x &nbsp; → at (1,2): 6(2) − 2(1) = 12 − 2 = 10</li>
+      </ol>
+      <div class="answer">Answer: ∇f(1,2) = [−2, 10]</div>
+    </div>
+
+    <div class="callout">
+      <span class="tag">Intuition</span>
+      Think of the loss as the height of a hilly landscape. The gradient tells you which way is uphill. To reduce the loss we walk downhill — i.e. we subtract a small multiple of the gradient from the current parameters.
+    </div>
+
+    <div class="mcq">
+      <p class="q">The gradient of a function points in the direction of:</p>
+      <button class="mcq-opt" data-correct="false">Steepest decrease</button>
+      <button class="mcq-opt" data-correct="true">Steepest increase</button>
+      <button class="mcq-opt" data-correct="false">Zero change</button>
+      <button class="mcq-opt" data-correct="false">Random direction</button>
+    </div>
+
+    <div class="takeaways">
+      <h3>Key takeaways — Gradients</h3>
+      <ul>
+        <li>Derivative = slope = rate of change of a function of one variable.</li>
+        <li>Gradient = vector of partial derivatives for multi-variable functions.</li>
+        <li>Gradient points uphill; we move opposite to the gradient to minimize loss.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ========== OPTIMIZATION ========== -->
+  <section class="day-section" id="optimization">
+    <div class="day-head">
+      <span class="day-num">1.4</span>
+      <h2>Optimization Basics — Finding the Best Model</h2>
+    </div>
+    <p class="day-sub">Unit 1 · Mathematics for AI/ML · Lesson 4</p>
+
+    <div class="topic">
+      <h3>Loss function</h3>
+      <p>A <strong>loss function</strong> measures how wrong the model’s predictions are. The goal of training is to find the parameters (weights) that make the loss as small as possible.</p>
+      <p>Simple example — Mean Squared Error for one prediction:</p>
+      <div class="formula">
+        L = (y_true − y_pred)²
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>Gradient Descent — the core algorithm</h3>
+      <p>1. Start with random weights.<br>
+         2. Compute the gradient of the loss with respect to the weights.<br>
+         3. Update: &nbsp; w ← w − η · ∇L<br>
+         4. Repeat until the loss stops decreasing.</p>
+      <p>η (eta) is the <strong>learning rate</strong> — how big a step we take.</p>
+    </div>
+
+    <div class="worked">
+      <div class="title">Worked Example — One step of gradient descent (tiny data)</div>
+      <p><strong>Setup:</strong> We want to fit a line y = w·x to the single point (x=2, y=8). Start with w = 1. Learning rate η = 0.1. Loss = (y − w·x)².</p>
+      <ol class="steps">
+        <li>Current prediction: ŵ = 1 · 2 = 2</li>
+        <li>Loss: (8 − 2)² = 36</li>
+        <li>Gradient ∂L/∂w = −2 · (8 − w·2) · 2 = −4 · (8 − 2) = −24</li>
+        <li>Update: w ← 1 − 0.1 · (−24) = 1 + 2.4 = 3.4</li>
+        <li>New prediction: 3.4 · 2 = 6.8 (much closer to 8)</li>
+        <li>New loss: (8 − 6.8)² = 1.44 (much smaller)</li>
+      </ol>
+      <div class="answer">After one step the weight moved from 1 → 3.4 and the loss dropped from 36 → 1.44.</div>
+    </div>
+
+    <div class="callout warn">
+      <span class="tag">Learning-rate tip</span>
+      Too large η → the algorithm jumps around and may never settle.<br>
+      Too small η → learning is very slow.<br>
+      Typical starting values: 0.01, 0.001, 0.0001. We often try a few and pick the best.
+    </div>
+
+    <div class="mcq">
+      <p class="q">In the update rule w ← w − η · ∇L, why do we subtract the gradient?</p>
+      <button class="mcq-opt" data-correct="true">Because the gradient points uphill and we want to go downhill</button>
+      <button class="mcq-opt" data-correct="false">Because the gradient is always negative</button>
+      <button class="mcq-opt" data-correct="false">It is just a convention</button>
+      <button class="mcq-opt" data-correct="false">To make the learning rate larger</button>
+    </div>
+
+    <div class="takeaways">
+      <h3>Key takeaways — Optimization</h3>
+      <ul>
+        <li>Loss measures how wrong the model is.</li>
+        <li>Gradient descent repeatedly moves parameters opposite to the gradient.</li>
+        <li>Learning rate controls step size; it must be chosen carefully.</li>
+        <li>Almost every modern neural network is trained with some form of gradient descent.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ========== PROBABILITY ========== -->
+  <section class="day-section" id="probability">
+    <div class="day-head">
+      <span class="day-num">2</span>
+      <h2>Probability &amp; Statistics Essentials</h2>
+    </div>
+    <p class="day-sub">Unit 2 · Probability theory, Bayes, descriptive statistics</p>
+
+    <div class="topic">
+      <h3>Basic probability</h3>
+      <p>Probability of an event is a number between 0 and 1 that tells us how likely the event is.</p>
+      <div class="formula">
+        P(A) = number of favorable outcomes / total possible outcomes
+      </div>
+    </div>
+
+    <div class="worked">
+      <div class="title">Worked Example — Simple probability</div>
+      <p>A bag contains 3 red and 7 blue balls. Probability of drawing a red ball?</p>
+      <div class="answer">P(red) = 3 / 10 = 0.3</div>
+    </div>
+
+    <div class="topic">
+      <h3>Conditional probability &amp; Bayes’ theorem</h3>
+      <p>P(A|B) means “probability of A given that B has already happened”.</p>
+      <div class="formula">
+        P(A|B) = P(B|A) · P(A) / P(B)
+      </div>
+      <p>This is Bayes’ theorem. It lets us update our belief about A after seeing evidence B.</p>
+    </div>
+
+    <div class="worked">
+      <div class="title">Worked Example — Bayes (medical test)</div>
+      <p>Disease affects 1% of people. Test is 99% accurate (true positive rate 0.99, false positive rate 0.01). You tested positive. What is the probability you really have the disease?</p>
+      <ol class="steps">
+        <li>P(D) = 0.01, P(not D) = 0.99</li>
+        <li>P(+|D) = 0.99, P(+|not D) = 0.01</li>
+        <li>P(+) = 0.99×0.01 + 0.01×0.99 = 0.0198</li>
+        <li>P(D|+) = (0.99 × 0.01) / 0.0198 ≈ 0.5</li>
+      </ol>
+      <div class="answer">Even with a 99% accurate test, a positive result only gives about 50% probability of having the disease (because the disease is rare).</div>
+    </div>
+
+    <div class="topic">
+      <h3>Mean, variance, standard deviation</h3>
+      <p>For a small dataset x = [2, 4, 4, 6, 8]:</p>
+      <ul>
+        <li>Mean μ = (2+4+4+6+8)/5 = 24/5 = 4.8</li>
+        <li>Variance = average of squared differences from the mean</li>
+        <li>Standard deviation = √variance (same units as the data)</li>
+      </ul>
+    </div>
+
+    <div class="worked">
+      <div class="title">Worked Example — Mean &amp; Variance</div>
+      <p>Data: [2, 4, 4, 6, 8], mean = 4.8</p>
+      <ol class="steps">
+        <li>Squared diffs: (2−4.8)²=7.84, (4−4.8)²=0.64, (4−4.8)²=0.64, (6−4.8)²=1.44, (8−4.8)²=10.24</li>
+        <li>Sum = 20.8</li>
+        <li>Variance (population) = 20.8 / 5 = 4.16</li>
+        <li>Std dev = √4.16 ≈ 2.04</li>
+      </ol>
+      <div class="answer">Mean = 4.8, Variance = 4.16, Std Dev ≈ 2.04</div>
+    </div>
+
+    <div class="takeaways">
+      <h3>Key takeaways — Probability</h3>
+      <ul>
+        <li>Probability quantifies uncertainty (0 to 1).</li>
+        <li>Bayes’ theorem updates beliefs when new evidence arrives.</li>
+        <li>Mean, variance and standard deviation summarize a dataset.</li>
+        <li>These ideas appear in Naive Bayes classifiers, evaluation metrics, and uncertainty estimation.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ========== PROGRAMMING ========== -->
+  <section class="day-section" id="programming">
+    <div class="day-head">
+      <span class="day-num">3</span>
+      <h2>Programming Foundations</h2>
+    </div>
+    <p class="day-sub">Unit 3 · Python + NumPy, Pandas, Matplotlib, Scikit-learn</p>
+
+    <div class="topic">
+      <h3>Python essentials you need</h3>
+      <p>You should be comfortable with:</p>
+      <ul>
+        <li>Variables, lists, dictionaries</li>
+        <li>if / else, for loops, list comprehensions</li>
+        <li>Functions (def) and simple classes</li>
+      </ul>
+    </div>
+
+    <div class="topic">
+      <h3>NumPy — fast numerical arrays</h3>
+      <pre><code>import numpy as np
+
+# Create a vector
+v = np.array([3, 4])
+print(v)          # [3 4]
+print(np.linalg.norm(v))  # magnitude = 5.0
+
+# Dot product
+a = np.array([1, 2, 3])
+b = np.array([4, -5, 6])
+print(np.dot(a, b))       # 12
+
+# Matrix multiplication
+A = np.array([[1, 2], [3, 4]])
+B = np.array([[5, 6], [7, 8]])
+print(A @ B)              # [[19 22] [43 50]]
+</code></pre>
+    </div>
+
+    <div class="topic">
+      <h3>Pandas — tables of data</h3>
+      <pre><code>import pandas as pd
+
+df = pd.DataFrame({
+    "height": [160, 170, 165, 180],
+    "weight": [55, 70, 60, 80]
+})
+print(df.head())
+print(df["height"].mean())   # average height
+</code></pre>
+    </div>
+
+    <div class="topic">
+      <h3>Matplotlib — simple plots</h3>
+      <pre><code>import matplotlib.pyplot as plt
+
+x = [1, 2, 3, 4]
+y = [2, 4, 6, 8]
+plt.plot(x, y, marker="o")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.title("Simple line")
+plt.show()
+</code></pre>
+    </div>
+
+    <div class="topic">
+      <h3>Scikit-learn — first model in 6 lines</h3>
+      <pre><code>from sklearn.linear_model import LinearRegression
+import numpy as np
+
+X = np.array([[1], [2], [3], [4]])
+y = np.array([2, 4, 6, 8])
+
+model = LinearRegression()
+model.fit(X, y)
+print(model.predict([[5]]))   # ≈ [10]
+</code></pre>
+    </div>
+
+    <div class="callout">
+      <span class="tag">Practice assignment (from curriculum)</span>
+      Write Python scripts that: (1) simulate probability concepts with NumPy, (2) visualize basic math operations, (3) perform simple data analysis with Pandas.
+    </div>
+
+    <div class="takeaways">
+      <h3>Key takeaways — Programming</h3>
+      <ul>
+        <li>NumPy gives fast vector and matrix operations that match the math we learned.</li>
+        <li>Pandas turns data into tables you can filter, group and summarize.</li>
+        <li>Matplotlib (and Seaborn) turn numbers into pictures.</li>
+        <li>Scikit-learn lets you train classical ML models with almost no code.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ========== MODULE SUMMARY ========== -->
+  <section class="day-section">
+    <div class="day-head">
+      <span class="day-num">✓</span>
+      <h2>Module 1 Complete — What you should be able to do</h2>
+    </div>
+
+    <div class="topic">
+      <ul>
+        <li>Calculate vector magnitude, addition, scalar multiplication, dot product and cosine similarity by hand on small numbers.</li>
+        <li>Multiply small matrices by hand and explain why the shapes must match.</li>
+        <li>Compute a simple derivative and a 2-variable gradient.</li>
+        <li>Perform one step of gradient descent on a tiny example and see the loss decrease.</li>
+        <li>Apply Bayes’ theorem to a simple diagnostic problem.</li>
+        <li>Compute mean, variance and standard deviation of a small dataset.</li>
+        <li>Use NumPy for vectors/matrices, Pandas for tables, Matplotlib for plots, and Scikit-learn for a first linear model.</li>
+      </ul>
+    </div>
+
+    <div class="callout">
+      <span class="tag">Next module</span>
+      Module 2 — AI/ML and Cloud Platforms: real-world applications, the AI pipeline, and the cloud tools you will use for the rest of the course.
+    </div>
+
+    <p style="margin-top:32px;">
+      <a href="../index.html">← Back to Roadmap</a>
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>NIAI Module 1 — Foundation · Detailed theory + numerical examples · Static site ready for GitHub Pages</p>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
