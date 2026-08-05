@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 2 — AI/ML and Cloud Platforms | NIAI Course</title>
+  <meta name="description" content="Module 2: AI Basics & Real-world Applications, AI Pipeline, AI Cloud Ecosystem. Detailed theory, diagrams, videos and examples for beginners.">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<div class="progress-track"><div class="progress-fill"></div></div>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html">NIAI<span> · AI/ML</span></a>
+    <nav class="topnav">
+      <a href="../index.html">Roadmap</a>
+      <a href="../module1/index.html">Module 1</a>
+      <button class="topnav-btn" id="slideModeToggle">▶ Slides</button>
+    </nav>
+  </div>
+</header>
+
+<nav class="daynav wrap">
+  <a href="#intro">Intro</a>
+  <a href="#applications">AI Applications</a>
+  <a href="#pipeline">AI Pipeline</a>
+  <a href="#cloud">Cloud Ecosystem</a>
+  <a href="#assignment">Assignment</a>
+</nav>
+
+<main class="wrap">
+
+  <!-- INTRO -->
+  <section class="day-section" id="intro">
+    <div class="day-head">
+      <span class="day-num">02</span>
+      <h2>Module 2 — AI/ML and Cloud Platforms</h2>
+    </div>
+    <p class="day-sub">AI Basics &amp; Real-world Applications · AI Pipeline · AI Cloud Ecosystem</p>
+
+    <div class="topic">
+      <h3>Learning goals for this module</h3>
+      <ol>
+        <li>See concrete use-cases of AI in healthcare, finance, e-commerce and transportation</li>
+        <li>Understand the full AI/ML pipeline from data to deployed model</li>
+        <li>Know the main cloud ML services and development tools (especially Google Cloud)</li>
+        <li>Be able to set up a basic cloud environment for later modules</li>
+      </ol>
+    </div>
+
+    <div class="callout">
+      <span class="tag">How to study</span>
+      Use <strong>▶ Slides</strong> for presentation mode. Watch the embedded videos. Open the external resource cards — many contain interactive diagrams and animations from the sources listed in the curriculum.
+    </div>
+  </section>
+
+  <!-- APPLICATIONS -->
+  <section class="day-section" id="applications">
+    <div class="day-head">
+      <span class="day-num">2.1</span>
+      <h2>AI Basics &amp; Real-world Applications</h2>
+    </div>
+    <p class="day-sub">Unit 1 · Healthcare · Finance · E-commerce · Transportation</p>
+
+    <div class="topic">
+      <h3>What is Artificial Intelligence (simple definition)</h3>
+      <p>AI is the field of making computers do tasks that normally require human intelligence — recognising patterns, making decisions, understanding language, and improving with experience.</p>
+      <p><strong>Machine Learning</strong> is the part of AI where the system learns patterns from data instead of being given fixed rules.</p>
+      <p><strong>Deep Learning</strong> is a subset of ML that uses multi-layer neural networks (you will meet them in Modules 4–5).</p>
+    </div>
+
+    <div class="video-embed">
+      <iframe src="https://www.youtube.com/embed/aircAruvnKk" title="3Blue1Brown — But what is a neural network?" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <p class="video-caption">3Blue1Brown — “But what is a neural network?” Classic visual introduction (watch even if you already know the basics).</p>
+
+    <div class="topic">
+      <h3>1. Healthcare</h3>
+      <ul>
+        <li><strong>Medical imaging</strong> — CNNs detect tumours, fractures, pneumonia from X-rays and CT scans (often better than average radiologists on narrow tasks).</li>
+        <li><strong>Drug discovery</strong> — models predict which molecules are likely to bind to a target protein, cutting years of lab work.</li>
+        <li><strong>Clinical decision support</strong> — systems flag high-risk patients or suggest possible diagnoses from electronic health records.</li>
+        <li><strong>Personalised treatment</strong> — recommend dosage or therapy based on patient history and genetics.</li>
+      </ul>
+      <div class="callout">
+        <span class="tag">Real example</span>
+        Google’s DeepMind and many research groups have published models that detect diabetic retinopathy from retinal photos — a leading cause of blindness that is treatable if caught early.
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>2. Finance</h3>
+      <ul>
+        <li><strong>Fraud detection</strong> — supervised and unsupervised models score every transaction in milliseconds.</li>
+        <li><strong>Credit scoring</strong> — models combine traditional features with alternative data to decide loan approvals.</li>
+        <li><strong>Algorithmic trading</strong> — models forecast short-term price moves or optimise portfolios.</li>
+        <li><strong>Customer service chatbots</strong> — NLP models answer routine queries and route complex ones.</li>
+      </ul>
+    </div>
+
+    <div class="topic">
+      <h3>3. E-commerce &amp; Retail</h3>
+      <ul>
+        <li><strong>Recommendation systems</strong> — collaborative filtering + content-based models (the “people who bought X also bought Y”).</li>
+        <li><strong>Search ranking</strong> — learning-to-rank models decide which products appear first.</li>
+        <li><strong>Demand forecasting</strong> — time-series and gradient-boosted models predict inventory needs.</li>
+        <li><strong>Visual search</strong> — upload a photo and find similar products (computer vision embeddings + similarity search).</li>
+      </ul>
+    </div>
+
+    <div class="topic">
+      <h3>4. Transportation</h3>
+      <ul>
+        <li><strong>Autonomous vehicles</strong> — perception (detect cars, pedestrians, lanes), prediction, and planning.</li>
+        <li><strong>Route optimisation</strong> — reduce fuel and delivery time (classic operations research + ML).</li>
+        <li><strong>Traffic prediction</strong> — forecast congestion using historical + real-time sensor data.</li>
+        <li><strong>Predictive maintenance</strong> — sensors + models predict when a vehicle or aircraft part will fail.</li>
+      </ul>
+    </div>
+
+    <a class="resource-card" href="https://www.geeksforgeeks.org/machine-learning/machine-learning/" target="_blank" rel="noopener">
+      <span class="src">GeeksforGeeks</span>
+      <h4>Machine Learning Tutorial — Applications section</h4>
+      <p>Structured overview of ML applications across industries with diagrams.</p>
+    </a>
+
+    <a class="resource-card" href="https://github.com/microsoft/AI-For-Beginners" target="_blank" rel="noopener">
+      <span class="src">Microsoft · AI for Beginners</span>
+      <h4>github.com/microsoft/AI-For-Beginners</h4>
+      <p>Visual curriculum with lessons, quizzes and hands-on notebooks. Excellent diagrams for AI history and applications.</p>
+    </a>
+
+    <div class="mcq">
+      <p class="q">Which of the following is primarily a Deep Learning application?</p>
+      <button class="mcq-opt" data-correct="false">Simple linear regression on house prices</button>
+      <button class="mcq-opt" data-correct="true">Detecting tumours in CT scans with a CNN</button>
+      <button class="mcq-opt" data-correct="false">Calculating average sales per month</button>
+      <button class="mcq-opt" data-correct="false">Sorting a list of numbers</button>
+    </div>
+  </section>
+
+  <!-- AI PIPELINE -->
+  <section class="day-section" id="pipeline">
+    <div class="day-head">
+      <span class="day-num">2.2</span>
+      <h2>The AI / Machine Learning Pipeline</h2>
+    </div>
+    <p class="day-sub">Unit 2 · From raw data to a running system</p>
+
+    <div class="topic">
+      <h3>Why a pipeline?</h3>
+      <p>Building a model is not “run one script and done”. Real systems go through a repeatable sequence of steps so that results are reliable, reproducible, and maintainable.</p>
+    </div>
+
+    <div class="topic">
+      <h3>Standard high-level pipeline</h3>
+      <ol>
+        <li><strong>Problem definition</strong> — What business question are we answering? What is success?</li>
+        <li><strong>Data collection</strong> — Gather historical data, labels, external sources.</li>
+        <li><strong>Data preparation</strong> — Clean, handle missing values, encode, scale, split train/validation/test.</li>
+        <li><strong>Feature engineering</strong> — Create useful signals from raw columns (you will do this deeply in Module 3).</li>
+        <li><strong>Model selection &amp; training</strong> — Choose algorithms, tune hyperparameters, train.</li>
+        <li><strong>Evaluation</strong> — Metrics on held-out data (accuracy, precision, recall, RMSE, AUC…).</li>
+        <li><strong>Deployment</strong> — Serve the model via API, batch jobs, or edge devices.</li>
+        <li><strong>Monitoring &amp; retraining</strong> — Detect drift, collect new labels, retrain when needed.</li>
+      </ol>
+    </div>
+
+    <div class="callout">
+      <span class="tag">Visual resource</span>
+      GeeksforGeeks has a clear flowchart of the basic ML model lifecycle. Open it and keep it open while reading this section:
+      <br><a href="https://www.geeksforgeeks.org/machine-learning/flowchart-for-basic-machine-learning-models/" target="_blank" rel="noopener">Flowchart for basic Machine Learning models →</a>
+    </div>
+
+    <a class="resource-card" href="https://www.geeksforgeeks.org/machine-learning/machine-learning-lifecycle/" target="_blank" rel="noopener">
+      <span class="src">GeeksforGeeks</span>
+      <h4>Machine Learning Lifecycle</h4>
+      <p>Detailed stages of the ML lifecycle with diagrams.</p>
+    </a>
+
+    <a class="resource-card" href="https://github.com/GokuMohandas/Made-With-ML" target="_blank" rel="noopener">
+      <span class="src">Goku Mohandas · Made With ML</span>
+      <h4>github.com/GokuMohandas/Made-With-ML</h4>
+      <p>End-to-end MLOps course with beautiful architecture diagrams, experiment tracking, and production patterns. Highly recommended for the pipeline mindset.</p>
+    </a>
+
+    <div class="topic">
+      <h3>Training vs Inference</h3>
+      <ul>
+        <li><strong>Training</strong> — heavy computation, uses labels, produces a model file (weights).</li>
+        <li><strong>Inference</strong> (prediction) — lightweight, runs the saved model on new data, returns answers in real time or batch.</li>
+      </ul>
+      <p>Most production cost is often in serving many inference requests, not in the one-time training job.</p>
+    </div>
+
+    <div class="topic">
+      <h3>Tiny numerical mental model</h3>
+      <p>Imagine predicting house price from size (sq ft).</p>
+      <ul>
+        <li>Data: 5 houses with (size, price)</li>
+        <li>Model: simple linear regression → price ≈ w × size + b</li>
+        <li>Training: find w and b that minimise squared error (Module 1 gradient descent)</li>
+        <li>Inference: new house of 1200 sq ft → plug into the formula and get a price</li>
+      </ul>
+      <p>Scale this idea to millions of rows and hundreds of features and you have a real pipeline.</p>
+    </div>
+
+    <div class="video-embed">
+      <iframe src="https://www.youtube.com/embed/X1Mq_D6aXgk" title="ML Pipeline overview" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <p class="video-caption">Short visual overview of a standard Machine Learning pipeline / lifecycle.</p>
+
+    <div class="mcq">
+      <p class="q">In a production system, which stage usually runs continuously after the model is live?</p>
+      <button class="mcq-opt" data-correct="false">Collecting the original training dataset only once</button>
+      <button class="mcq-opt" data-correct="true">Monitoring predictions and detecting data/model drift</button>
+      <button class="mcq-opt" data-correct="false">Choosing the algorithm for the first time</button>
+      <button class="mcq-opt" data-correct="false">Writing the research paper</button>
+    </div>
+  </section>
+
+  <!-- CLOUD -->
+  <section class="day-section" id="cloud">
+    <div class="day-head">
+      <span class="day-num">2.3</span>
+      <h2>AI Cloud Ecosystem</h2>
+    </div>
+    <p class="day-sub">Unit 3 · Core ML Services + Development Tools (GCP focus)</p>
+
+    <div class="topic">
+      <h3>Why cloud for AI/ML?</h3>
+      <ul>
+        <li>GPUs and TPUs are expensive to own; cloud lets you rent them by the hour</li>
+        <li>Managed storage, databases, and data pipelines scale automatically</li>
+        <li>ML services (AutoML, training, serving, monitoring) reduce boilerplate</li>
+        <li>Collaboration, versioning, and security are built-in</li>
+      </ul>
+    </div>
+
+    <div class="topic">
+      <h3>Core ML services (Google Cloud examples)</h3>
+      <p>The NIAI curriculum emphasises Google Cloud. Key pieces:</p>
+      <ul>
+        <li><strong>Vertex AI</strong> — unified platform for training, deploying, and managing models</li>
+        <li><strong>BigQuery / BigQuery ML</strong> — analytics warehouse + SQL-based ML</li>
+        <li><strong>Cloud Storage</strong> — object storage for datasets and model artefacts</li>
+        <li><strong>Dataflow</strong> — batch and stream data processing (Apache Beam)</li>
+        <li><strong>Cloud Composer</strong> — managed Apache Airflow for pipeline orchestration</li>
+        <li><strong>TPUs &amp; GPUs</strong> — accelerators for deep learning training</li>
+      </ul>
+    </div>
+
+    <div class="callout">
+      <span class="tag">Architecture diagrams</span>
+      Google Cloud Architecture Center publishes official reference diagrams for ML systems. Browse them while learning:
+      <br><a href="https://cloud.google.com/architecture" target="_blank" rel="noopener">cloud.google.com/architecture →</a>
+    </div>
+
+    <a class="resource-card" href="https://github.com/ByteByteGoHq/system-design-101" target="_blank" rel="noopener">
+      <span class="src">ByteByteGo · System Design 101</span>
+      <h4>github.com/ByteByteGoHq/system-design-101</h4>
+      <p>Clear architecture diagrams. Adapt the same visual language when you design ML systems later.</p>
+    </a>
+
+    <div class="topic">
+      <h3>Development tools you will use</h3>
+      <ul>
+        <li><strong>Notebooks</strong> — Vertex AI Workbench / Colab / Jupyter for exploration</li>
+        <li><strong>SDK &amp; CLI</strong> — <code>gcloud</code>, Vertex AI Python SDK</li>
+        <li><strong>Experiment tracking</strong> — Vertex Experiments, or open-source (MLflow, Weights &amp; Biases)</li>
+        <li><strong>Containers</strong> — Docker images for reproducible training and serving</li>
+        <li><strong>CI/CD</strong> — Cloud Build + deployment pipelines (Module 8 MLOps)</li>
+      </ul>
+    </div>
+
+    <div class="topic">
+      <h3>Typical first cloud workflow (mental picture)</h3>
+      <ol>
+        <li>Upload a CSV to Cloud Storage</li>
+        <li>Create a Vertex AI dataset pointing to that file</li>
+        <li>Launch a training job (custom container or AutoML)</li>
+        <li>Register the resulting model</li>
+        <li>Deploy an endpoint</li>
+        <li>Send prediction requests via REST or the Python client</li>
+      </ol>
+      <p>You will practice pieces of this in later modules and in the Capstone.</p>
+    </div>
+
+    <div class="callout warn">
+      <span class="tag">Cost awareness</span>
+      Always set budget alerts. Stop idle notebooks and undeploy unused endpoints. Free tiers and credits exist for students — use them carefully.
+    </div>
+
+    <a class="resource-card" href="https://github.com/ageron/handson-ml3" target="_blank" rel="noopener">
+      <span class="src">Aurélien Géron · Hands-On ML</span>
+      <h4>github.com/ageron/handson-ml3</h4>
+      <p>Excellent figures and notebooks. Many chapters show end-to-end workflows that map cleanly onto cloud steps.</p>
+    </a>
+
+    <div class="mcq">
+      <p class="q">Which Google Cloud service is the unified platform for training and deploying ML models?</p>
+      <button class="mcq-opt" data-correct="false">Cloud Storage alone</button>
+      <button class="mcq-opt" data-correct="true">Vertex AI</button>
+      <button class="mcq-opt" data-correct="false">Cloud DNS</button>
+      <button class="mcq-opt" data-correct="false">Cloud CDN</button>
+    </div>
+  </section>
+
+  <!-- ASSIGNMENT -->
+  <section class="day-section" id="assignment">
+    <div class="day-head">
+      <span class="day-num">✓</span>
+      <h2>Assignment &amp; Checklist</h2>
+    </div>
+    <p class="day-sub">From curriculum: Setting up cloud environment and related tools</p>
+
+    <div class="topic">
+      <h3>Practical tasks</h3>
+      <ol>
+        <li>Create a free-tier / trial Google Cloud account (or use Colab if cloud access is restricted).</li>
+        <li>Enable Vertex AI and Cloud Storage APIs.</li>
+        <li>Upload a small CSV to a bucket.</li>
+        <li>Open a Vertex AI Workbench notebook (or Colab) and read the file with Pandas.</li>
+        <li>Write a short note (5–10 lines) describing one real AI application in healthcare or finance that interests you, including what data it would need.</li>
+      </ol>
+    </div>
+
+    <div class="takeaways">
+      <h3>Module 2 — Key takeaways</h3>
+      <ul>
+        <li>AI is already embedded in healthcare, finance, retail and transport.</li>
+        <li>A proper pipeline covers problem → data → features → train → evaluate → deploy → monitor.</li>
+        <li>Cloud (especially Vertex AI + BigQuery + Dataflow) removes the need to manage servers and GPUs yourself.</li>
+        <li>Training produces a model; inference uses that model to answer new questions.</li>
+      </ul>
+    </div>
+
+    <div class="callout">
+      <span class="tag">Next</span>
+      Module 3 — Data Pipeline: Data Preparation and Feature Engineering. You will clean data, encode features, and build ETL-style flows.
+    </div>
+
+    <p style="margin-top:28px;">
+      <a href="../module1/index.html">← Module 1</a> &nbsp;·&nbsp;
+      <a href="../index.html">Roadmap</a>
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>NIAI Module 2 — AI/ML and Cloud Platforms · Visuals &amp; links from 3Blue1Brown, StatQuest, GeeksforGeeks, Made-With-ML, Microsoft AI-For-Beginners, Google Cloud Architecture</p>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
